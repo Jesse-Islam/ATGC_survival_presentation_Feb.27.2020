@@ -47,25 +47,51 @@ knitr::opts_chunk$set(dev = 'pdf')
 ## Dr. Cox's perspective
 ![](coxquote.png)
 
+## Index
+* SUPPORT study
+* Casebase sampling
+* Logistic regression on survival data
+* Maximum likelihood with regularization
+* Comparing hazard models in SUPPORT study
+* Absolute risk comparison
+* Future work
+* References
+
 
 ```{r , echo=FALSE, warning=FALSE,message=FALSE}
-PatientID=c(1,2,3,4,5)
-repSample<-c(3,1682,40176,146154,159814)
-repSample<-casebase::ERSPC[repSample,]
-repSample=cbind(PatientID,repSample)
-repSample$Follow.Up.Time=round(repSample$Follow.Up.Time,3)
-knitr::kable(repSample,row.names = FALSE)
+#table 1 summary
 ```
 
-## Recall
+## SUPPORT dataset
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
 * Setting: 5 academic care centers in the United States
 * Participants: 4301 hospitalized adults, (only have access to 1000)
 * Follow-up-time: 180 days
 
+## SUPPORT Imputation
+* Notorious for missing data
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\hline
+Baseline Variable      & Normal Fill-in Value \\ \hline
+Bilirubin              & 1.01                 \\
+BUN                    & 6.51                 \\
+Creatinine             & 1.01                 \\
+PaO2/FiO2 ratio (pafi) & 333.3                \\
+Serum albumin          & 3.5                  \\
+Urine output           & 2502                 \\
+White blood count      & 9 (thousands)        \\ \hline
+\end{tabular}%
+}
+\caption{Suggested imputation values. {[}Support site reference{]}}
+\label{tab:my-table}
+\end{table}
 
-
+## Removed variables
+blah blah blah
 
 ## Casebase Overview
 
