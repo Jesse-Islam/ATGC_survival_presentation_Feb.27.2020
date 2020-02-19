@@ -30,7 +30,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 ## Popular methods in time-to-event analysis 
 
-* In disease etiology, we tend to make use of the proportional hazards hypothesis .
+* In disease etiology, we tend to make use of the proportional hazards hypothesis.
     * Cox Regression
 
 * When we want the absolute risk:
@@ -55,11 +55,17 @@ repSample<-casebase::ERSPC[repSample,]
 repSample=cbind(PatientID,repSample)
 repSample$Follow.Up.Time=round(repSample$Follow.Up.Time,3)
 knitr::kable(repSample,row.names = FALSE)
-
 ```
 
 ## Recall
-* **Using the ERSPC dataset and casebase, we will determine Justin's absolute risk for death by prostate cancer.**
+* **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
+* Design: Prospective cohort study.
+* Setting: 5 academic care centers in the United States
+* Participants: 4301 hospitalized adults, (only have access to 1000)
+* Follow-up-time: 180 days
+
+
+
 
 ## Casebase Overview
 
