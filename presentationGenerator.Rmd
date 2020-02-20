@@ -9,13 +9,11 @@ output:
     incremental: yes
     fig_caption: false
 ---
-
-```{r packages,echo=FALSE,include=FALSE}
+```{r packages,include=FALSE,echo=FALSE}
 
 source("packages.R")
 set.seed(1)
 ```
----
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -52,18 +50,13 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Future work
 * References
 
-
-```{r , echo=FALSE, warning=FALSE,message=FALSE}
-#table 1 summary
-```
-
 ## SUPPORT dataset
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
-* Setting: 5 academic care centers in the United States
-* Participants: 9105 hospitalized s
-* Follow-up-time: 5.56 years
-* 68% incidence rate
+* Setting: 5 academic care centers in the United States.
+* Participants: 9105 hospitalized.
+* Follow-up-time: 5.56 years.
+* 68% incidence rate.
 
 ## SUPPORT manual imputation
 * Notorious for missing data
@@ -128,15 +121,20 @@ White blood count      & 9 (thousands)        \\ \hline
 
 ## Analysis Process
 
-1. Compare SPS and APS over ~5.56 years using absolute risk curves.
-2. Compare to Kaplan-Meier curve
-3. Compare to full model (excluding SPS and APS)
+1. Impute
+2. Compare SPS and APS over ~5.56 years using absolute risk curves.
+3. Compare to Kaplan-Meier curve
+4. Compare to full model (excluding SPS and APS)
+
+* All models is trained on 80% of the observations.
+* Remaining observations are used to generate comparative absolute risk curves.
 
 ```{r data processing}
 ew <- read_csv("support2.csv")
 data<-read.csv('support2.csv', col.names=colnames(ew), fill=TRUE, header=TRUE)
 rm(ew)
 ```
+
 
 ```{r cleaningImputation}
 #manual imputation
@@ -155,9 +153,9 @@ supportMain<-data[,-previousModelPositions]
 supportPrevious<-data[,previousModelPositions]
 #keep 1,2 after imputation from previous usable models.
 
-missingPattern<-md.pattern(supportMain)
+#missingPattern<-md.pattern(supportMain)
 supportMainImpute <-mice(supportMain[,-c(11,34,13,14,15)], m = 1) #impute while removing ordinal variables and other response variables.
-imputedData<-cbind(complete(supportMainImpute,1),supportPrevious[,c(1,2)])
+imputedData<-cbind(complete(supportMainImpute,1),supportPrevious[,c(1,2)],printFlag=FALSE)
 #adls is missing 33%, and is removed accordingly and hospitaldeath
 #md.pattern(completeData)
 completeData<-na.omit(imputedData[,-c(4,29)])
@@ -165,14 +163,16 @@ completeData<-na.omit(imputedData[,-c(4,29)])
 
 ```{r supportSetUp, echo = FALSE, eval = eval_cs3}
 
-
 ratio=10  #universal ratio for eval_cs3
 #keep one individual out, at random, for which we will develop an 
 #absolute risk curve.
 #sam=sample(1:nrow(completeData), )
 #Set workingData to the remaining individuals in the data
 #workingData=completeData[-c(sam),]
+
 workingCompleteData=model.matrix(death~ .-d.time,data=completeData)[,-c(1)]#remove intercept
+
+
 #Create u and xCox, which will be used when fitting Cox with glmnet.
 newData=workingCompleteData
 x=workingCompleteData
@@ -196,59 +196,93 @@ abcoxSPS<-survival::survfit(coxSPS,newdata = test)
 coxAPS<- survival::coxph(Surv(time=V1,event=V2) ~ aps, data = train)
 abcoxAPS<-survival::survfit(coxAPS,newdata = test)
 
-coxNaive<- survival::coxph(Surv(time=V1,event=V2) ~ .-sps -aps, data = train)
-abcoxNaive<-survival::survfit(coxAPS,newdata = test)
+coxFull<- survival::coxph(Surv(time=V1,event=V2) ~ .-sps -aps, data = train)
+abcoxFull<-survival::survfit(coxAPS,newdata = test)
 
 KM<- survival::coxph(Surv(time=V1,event=V2) ~ 1, data = test)
 abKM<-survival::survfit(KM)
-abKMcompare<-cbind(abKM$time[abKMcompare[,1]<=1631],1-abKM$surv[abKMcompare[,1]<=1631])
-colnames(abKMcompare)<-c("Time","KM")
+abKMcompare<-cbind(abKM$time[abKM$time<=1631],1-abKM$surv[abKM$time<=1631])
+colnames(abKMcompare)<-c("Time","unadjusted")
 
-baseCoxComparisonData<-cbind(c(1:1631),1-rowMeans(abcoxSPS$surv),1-rowMeans(abcoxAPS$surv),1-abKM$surv,1-rowMeans(abcoxNaive$surv))
-colnames(baseCoxComparisonData)<-c("Time","SPS","APS","KM","Naive")
+baseCoxComparisonData<-cbind(c(1:1634),1-rowMeans(abcoxSPS$surv),1-rowMeans(abcoxAPS$surv),1-abKM$surv,1-rowMeans(abcoxFull$surv))
+colnames(baseCoxComparisonData)<-c("Time","SPS","APS","unadjusted","Full")
+library(RColorBrewer)
+myColors <- brewer.pal(5,"Dark2")
 ```
 
 
-
-```{r }
+## SPS vs APS
+```{r SPSvsAPS}
 #Full
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="KM"),lwd=2)
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
+  scale_colour_manual(name = "Models",values = myColors[c(3,4)])
+```
+
+## SPS vs APS
+```{r SPSvsAPSZoom}
 #ZOOM
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=1) +
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="KM"))+
- scale_x_continuous(limits = c(1, 500))
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
+ scale_x_continuous(limits = c(1000, 1250))+
+  scale_colour_manual(name = "Models",values = myColors[c(3,4)])
+```
 
-  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)ggplot(as.data.frame(baseCoxComparisonData[c(150:500),]), aes(Time)) + 
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=1) +
-  geom_line(aes(y = KM, colour = "KM"),lwd=1) 
 
-ggplot(as.data.frame(baseCoxComparisonData[c(150:500),]), aes(Time)) + 
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
-  geom_line(aes(y = KM, colour = "KM"),lwd=1) +
-  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)
-
+## SPS vs. Kaplan-Meier
+```{r SPSvsKM}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = KM, colour = "KM"),lwd=1) +
-  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  scale_colour_manual(name = "Models",values = myColors[c(3,2,4)])
+```
+
+## SPS vs. Kaplan-Meier
+```{r SPSvsKMZoom}
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  scale_x_continuous(limits = c(1000, 1250))+
+  scale_colour_manual(name = "Models",values = myColors[c(3,2,4)])
+```
+
+
+## All covariates vs. physiology scores vs unadjusted
+```{r FullvsKM}
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  geom_line(aes(y = Full, col = "All Covariates without SPS APS"),lwd=2)+
+  scale_colour_manual(name = "Models",values = myColors[c(1,3,2,4)])
+```
+
+* Conclusion: linear associations without physiology scores performs similarly to physiology scores. (SPS and APS) (USE IPA)
+* 
+
+
+```{r}
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  geom_line(aes(y = Full, colour = "Full"),lwd=2)+
+  scale_colour_manual(name = "Models",values = myColors[c(1,2)])
 
 ```
 
 ```{r cbHazardInteractions}, echo = TRUE, eval = eval_cs3}
 
-cbNaive=casebase::fitSmoothHazard.fit(x[train_index,],y[train_index,],family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
+cbFull=casebase::fitSmoothHazard.fit(x[train_index,],y[train_index,],family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
 ```
 Then, we take our model and use the absoluteRisk function to integrate and retrieve our absolute risk function.
 
 
 ```{r CBabsoluteInteracts, echo = TRUE, eval = eval_cs3}
 #Estimating the absolute risk curve using the newData parameter.
-abCbNaive=casebase::absoluteRisk(cbNaive,time = seq(1,max(completeData$d.time), 20),newdata = x[test_index,] , s="lambda.1se",method=c("numerical"))
+abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(completeData$d.time), 400),newdata = x[test_index,] , s="lambda.1se",method=c("numerical"))
 
 cbAbs=data.frame(casebaseAbsoluteInter[,1],rowMeans(casebaseAbsoluteInter[,-c(1)]))
 ```
@@ -453,13 +487,13 @@ coxRisk=survfit(coxModel, newdata = newData)
 
 
 # cumulative incidence function for the Cox model
-plot(coxRisk$time,coxRisk$cumhaz, type="l",lwd=3,
+plot(coxRisk$time,coxRisk$cumhaz, type="l",lwd=2,
 xlab = "Years", ylab = "Cumulative Incidence (%)", fun = "event",
 xlim = c(0,15), conf.int = F, col = "red", 
 main = sprintf("Estimated Cumulative Incidence (risk) With No Screening"),cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 
 # add casebase curve with legend
-lines(wRisk[,1], wRisk[,2], type = "l", col = "blue",lwd=3)
+lines(wRisk[,1], wRisk[,2], type = "l", col = "blue",lwd=2)
 legend("bottomright", 
 legend = c("semi-parametric (Cox)", "parametric (casebase)"), 
 col = c("red","blue"),
