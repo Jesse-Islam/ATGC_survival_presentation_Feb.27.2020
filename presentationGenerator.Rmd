@@ -13,18 +13,13 @@ output:
 ```{r packages,echo=FALSE,include=FALSE}
 
 source("packages.R")
-#library(casebase)
-#library(survival)
-#library(splines)
-#library(tidyverse)
-#library(magrittr)
-#library(timereg)
-set.seed(100)
+set.seed(1)
 ```
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(include = FALSE, warning=FALSE,message=FALSE)
 knitr::opts_chunk$set(dev = 'pdf')
 ```
 
@@ -66,10 +61,11 @@ knitr::opts_chunk$set(dev = 'pdf')
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
 * Setting: 5 academic care centers in the United States
-* Participants: 4301 hospitalized adults, (only have access to 1000)
-* Follow-up-time: 180 days
+* Participants: 9105 hospitalized s
+* Follow-up-time: 5.56 years
+* 68% incidence rate
 
-## SUPPORT Imputation
+## SUPPORT manual imputation
 * Notorious for missing data
 \begin{table}[]
 \centering
@@ -90,8 +86,174 @@ White blood count      & 9 (thousands)        \\ \hline
 \label{tab:my-table}
 \end{table}
 
+## SUPPORT automated imputation
+
+* mice imputation package (R)
+
+1. PMM (Predictive Mean Matching)  – For numeric variables
+2. logreg(Logistic Regression) – For Binary Variables( with 2 levels)
+3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
+4. Proportional odds model (ordered, >= 2 levels)
+
 ## Removed variables
-blah blah blah
+
+* Hospital Charges.
+* Patient ratio of costs to charges.
+* Patient Micro-costs.
+* Ordinal functional disability.
+* Income (ordinal).
+
+## Variable overview
+
+* Age, sex, race, education, follow-up time, death. (6)
+* Disease group/class, Number of comorbidities. (3)
+* Income, costs. (4)
+* Coma score, average Therapeutic Intervention Scoring System (2)
+* Physiological variables. (11)
+* Activities of daily living. (3)
+* Previous model findings. (8)
+
+## Original SUPPORT analysis
+
+* Determined SUPPORT prognostic model on phase I (4301 individuals).
+* Tested on Phase II (4028 individuals).
+* Both on the scale of 180 days.
+* Write out complicated model?????
+* image of SPS vs APS ???????
+
+## SUPPORT question
+
+* How does their model perform over 5.56 years?
+* Absolute Risk comparison.
+
+## Analysis Process
+
+1. Compare SPS and APS over ~5.56 years using absolute risk curves.
+2. Compare to Kaplan-Meier curve
+3. Compare to full model (excluding SPS and APS)
+
+```{r data processing}
+ew <- read_csv("support2.csv")
+data<-read.csv('support2.csv', col.names=colnames(ew), fill=TRUE, header=TRUE)
+rm(ew)
+```
+
+```{r cleaningImputation}
+#manual imputation
+data$alb[is.na(data$alb)]=3.5
+data$pafi[is.na(data$pafi)]=333.3
+data$bili[is.na(data$bili)]=1.01
+data$crea[is.na(data$crea)]=1.01
+data$bun[is.na(data$bun)]=6.51
+data$wblc[is.na(data$wblc)]=9
+data$urine[is.na(data$urine)]=2502
+
+# automated imputation
+previousModelPositions<-c(18,19,20,21,22,23,24,25,26,27,28,29)
+
+supportMain<-data[,-previousModelPositions]
+supportPrevious<-data[,previousModelPositions]
+#keep 1,2 after imputation from previous usable models.
+
+missingPattern<-md.pattern(supportMain)
+supportMainImpute <-mice(supportMain[,-c(11,34,13,14,15)], m = 1) #impute while removing ordinal variables and other response variables.
+imputedData<-cbind(complete(supportMainImpute,1),supportPrevious[,c(1,2)])
+#adls is missing 33%, and is removed accordingly and hospitaldeath
+#md.pattern(completeData)
+completeData<-na.omit(imputedData[,-c(4,29)])
+```
+
+```{r supportSetUp, echo = FALSE, eval = eval_cs3}
+
+
+ratio=10  #universal ratio for eval_cs3
+#keep one individual out, at random, for which we will develop an 
+#absolute risk curve.
+#sam=sample(1:nrow(completeData), )
+#Set workingData to the remaining individuals in the data
+#workingData=completeData[-c(sam),]
+workingCompleteData=model.matrix(death~ .-d.time,data=completeData)[,-c(1)]#remove intercept
+#Create u and xCox, which will be used when fitting Cox with glmnet.
+newData=workingCompleteData
+x=workingCompleteData
+#x and y will be used to fit the casebase model under glmnet.
+#x=as.matrix(sparse.model.matrix(death~ .-d.time+0,data=workingData))
+y=data.matrix(completeData[,c(2,5)])
+```
+
+
+```{r CoxExplorationModels, echo = TRUE, eval = eval_cs3}
+
+fullDataCox<-as.data.frame(cbind(as.numeric(y[,2]),as.numeric(y[,1]),x))
+train_index <- sample(1:nrow(fullDataCox), 0.8 * nrow(fullDataCox))
+test_index <- setdiff(1:nrow(fullDataCox), train_index)
+
+train<-fullDataCox[train_index,]
+test<-fullDataCox[test_index,]
+coxSPS<- survival::coxph(Surv(time=V1,event=V2) ~ sps, data = train)
+abcoxSPS<-survival::survfit(coxSPS,newdata = test)
+
+coxAPS<- survival::coxph(Surv(time=V1,event=V2) ~ aps, data = train)
+abcoxAPS<-survival::survfit(coxAPS,newdata = test)
+
+coxNaive<- survival::coxph(Surv(time=V1,event=V2) ~ .-sps -aps, data = train)
+abcoxNaive<-survival::survfit(coxAPS,newdata = test)
+
+KM<- survival::coxph(Surv(time=V1,event=V2) ~ 1, data = test)
+abKM<-survival::survfit(KM)
+abKMcompare<-cbind(abKM$time[abKMcompare[,1]<=1631],1-abKM$surv[abKMcompare[,1]<=1631])
+colnames(abKMcompare)<-c("Time","KM")
+
+baseCoxComparisonData<-cbind(c(1:1631),1-rowMeans(abcoxSPS$surv),1-rowMeans(abcoxAPS$surv),1-abKM$surv,1-rowMeans(abcoxNaive$surv))
+colnames(baseCoxComparisonData)<-c("Time","SPS","APS","KM","Naive")
+```
+
+
+
+```{r }
+#Full
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="KM"),lwd=2)
+#ZOOM
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=1) +
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="KM"))+
+ scale_x_continuous(limits = c(1, 500))
+
+  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)ggplot(as.data.frame(baseCoxComparisonData[c(150:500),]), aes(Time)) + 
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=1) +
+  geom_line(aes(y = KM, colour = "KM"),lwd=1) 
+
+ggplot(as.data.frame(baseCoxComparisonData[c(150:500),]), aes(Time)) + 
+  geom_line(aes(y = SPS, colour = "SPS"),lwd=1) + 
+  geom_line(aes(y = KM, colour = "KM"),lwd=1) +
+  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)
+
+ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
+  geom_line(aes(y = KM, colour = "KM"),lwd=1) +
+  geom_line(aes(y = Naive, colour = "Naive"),lwd=1)
+
+```
+
+```{r cbHazardInteractions}, echo = TRUE, eval = eval_cs3}
+
+cbNaive=casebase::fitSmoothHazard.fit(x[train_index,],y[train_index,],family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
+```
+Then, we take our model and use the absoluteRisk function to integrate and retrieve our absolute risk function.
+
+
+```{r CBabsoluteInteracts, echo = TRUE, eval = eval_cs3}
+#Estimating the absolute risk curve using the newData parameter.
+abCbNaive=casebase::absoluteRisk(cbNaive,time = seq(1,max(completeData$d.time), 20),newdata = x[test_index,] , s="lambda.1se",method=c("numerical"))
+
+cbAbs=data.frame(casebaseAbsoluteInter[,1],rowMeans(casebaseAbsoluteInter[,-c(1)]))
+```
+
+
 
 ## Casebase Overview
 
@@ -103,6 +265,7 @@ blah blah blah
 * Package contains an implementation for generating *population-time* plots.
 
 ## Casebase: Sampling
+
 ```{r , echo=FALSE, warning=FALSE,message=FALSE}
 ERSPC=casebase::ERSPC
 

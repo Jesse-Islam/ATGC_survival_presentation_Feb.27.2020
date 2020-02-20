@@ -37,3 +37,22 @@ if(!pckg) {
   getPckg("survival")
   require(survival)
 }
+pckg = try(require(readr))
+if(!pckg) {
+  cat("Installing 'readr' from CRAN\n")
+  getPckg("readr")
+  require(readr)
+}
+pckg = try(require(mice))
+if(!pckg) {
+  cat("Installing 'mice' from CRAN\n")
+  getPckg("mice")
+  require(mice)
+}
+pckg = try(require(reshape2))
+if(!pckg) {
+  cat("Installing 'reshape2' from CRAN\n")
+  getPckg("reshape2")
+  require(reshape2)
+}
+
