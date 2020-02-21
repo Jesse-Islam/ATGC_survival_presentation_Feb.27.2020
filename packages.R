@@ -55,4 +55,10 @@ if(!pckg) {
   getPckg("reshape2")
   require(reshape2)
 }
+pckg = try(require(RColorBrewer))
+if(!pckg) {
+  cat("Installing 'RColorBrewer' from CRAN\n")
+  getPckg("RColorBrewer")
+  require(RColorBrewer)
+}
 

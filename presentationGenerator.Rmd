@@ -6,22 +6,18 @@ mathspec: true
 theme: "metropolis"
 output:
   beamer_presentation:
-    incremental: yes
+    incremental: no
     fig_caption: false
 ---
-```{r packages,include=FALSE,echo=FALSE}
-
-source("packages.R")
-set.seed(1)
-```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_chunk$set(include = FALSE, warning=FALSE,message=FALSE)
+source("packages.R")
+set.seed(1)
+knitr::opts_chunk$set( warning=FALSE,message=FALSE,echo=FALSE)
 knitr::opts_chunk$set(dev = 'pdf')
 ```
 
-## Popular methods in time-to-event analysis 
+# Popular methods in time-to-event analysis 
 
 * In disease etiology, we tend to make use of the proportional hazards hypothesis.
     * Cox Regression
@@ -30,17 +26,20 @@ knitr::opts_chunk$set(dev = 'pdf')
     * Breslow estimator
     * Parametric models
     
-## Motivations for a new method
+# Motivations for a new method
+
 * Julien and Hanley found that survival analysis rarely produces prognostic functions, even though the software is widely available in cox regression packages. [1]
 * They believe the stepwise nature is the reason, as it reduces interpretability. [1]
 * Want to easily model non-proportional hazards. [1]
 * A streamlined approach for reaching a **smooth absolute risk** curve. [1]
 
 
-## Dr. Cox's perspective
+# Dr. Cox's perspective
+
 ![](coxquote.png)
 
-## Index
+# Index
+
 * SUPPORT study
 * Casebase sampling
 * Logistic regression on survival data
@@ -50,7 +49,8 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Future work
 * References
 
-## SUPPORT dataset
+# SUPPORT dataset
+
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
 * Setting: 5 academic care centers in the United States.
@@ -58,7 +58,8 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Follow-up-time: 5.56 years.
 * 68% incidence rate.
 
-## SUPPORT manual imputation
+# SUPPORT manual imputation
+
 * Notorious for missing data
 \begin{table}[]
 \centering
@@ -79,7 +80,7 @@ White blood count      & 9 (thousands)        \\ \hline
 \label{tab:my-table}
 \end{table}
 
-## SUPPORT automated imputation
+# SUPPORT automated imputation
 
 * mice imputation package (R)
 
@@ -88,7 +89,7 @@ White blood count      & 9 (thousands)        \\ \hline
 3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
 4. Proportional odds model (ordered, >= 2 levels)
 
-## Removed variables
+# Removed variables
 
 * Hospital Charges.
 * Patient ratio of costs to charges.
@@ -96,7 +97,7 @@ White blood count      & 9 (thousands)        \\ \hline
 * Ordinal functional disability.
 * Income (ordinal).
 
-## Variable overview
+# Variable overview
 
 * Age, sex, race, education, follow-up time, death. (6)
 * Disease group/class, Number of comorbidities. (3)
@@ -106,7 +107,7 @@ White blood count      & 9 (thousands)        \\ \hline
 * Activities of daily living. (3)
 * Previous model findings. (8)
 
-## Original SUPPORT analysis
+# Original SUPPORT analysis
 
 * Determined SUPPORT prognostic model on phase I (4301 individuals).
 * Tested on Phase II (4028 individuals).
@@ -114,12 +115,12 @@ White blood count      & 9 (thousands)        \\ \hline
 * Write out complicated model?????
 * image of SPS vs APS ???????
 
-## SUPPORT question
+# SUPPORT question
 
 * How does their model perform over 5.56 years?
 * Absolute Risk comparison.
 
-## Analysis Process
+# Analysis Process
 
 1. Impute
 2. Compare SPS and APS over ~5.56 years using absolute risk curves.
@@ -129,14 +130,14 @@ White blood count      & 9 (thousands)        \\ \hline
 * All models is trained on 80% of the observations.
 * Remaining observations are used to generate comparative absolute risk curves.
 
-```{r data processing}
+```{r data processing,include=FALSE}
 ew <- read_csv("support2.csv")
 data<-read.csv('support2.csv', col.names=colnames(ew), fill=TRUE, header=TRUE)
 rm(ew)
 ```
 
 
-```{r cleaningImputation}
+```{r cleaningImputation,include=FALSE}
 #manual imputation
 data$alb[is.na(data$alb)]=3.5
 data$pafi[is.na(data$pafi)]=333.3
@@ -154,25 +155,12 @@ supportPrevious<-data[,previousModelPositions]
 #keep 1,2 after imputation from previous usable models.
 
 #missingPattern<-md.pattern(supportMain)
-supportMainImpute <-mice(supportMain[,-c(11,34,13,14,15)], m = 1) #impute while removing ordinal variables and other response variables.
-imputedData<-cbind(complete(supportMainImpute,1),supportPrevious[,c(1,2)],printFlag=FALSE)
+supportMainImpute <-mice(supportMain[,-c(11,34,13,14,15)], m = 1,printFlag=FALSE) #impute while removing ordinal variables and other response variables.
+imputedData<-cbind(complete(supportMainImpute,1),supportPrevious[,c(1,2)])
 #adls is missing 33%, and is removed accordingly and hospitaldeath
 #md.pattern(completeData)
 completeData<-na.omit(imputedData[,-c(4,29)])
-```
-
-```{r supportSetUp, echo = FALSE, eval = eval_cs3}
-
-ratio=10  #universal ratio for eval_cs3
-#keep one individual out, at random, for which we will develop an 
-#absolute risk curve.
-#sam=sample(1:nrow(completeData), )
-#Set workingData to the remaining individuals in the data
-#workingData=completeData[-c(sam),]
-
 workingCompleteData=model.matrix(death~ .-d.time,data=completeData)[,-c(1)]#remove intercept
-
-
 #Create u and xCox, which will be used when fitting Cox with glmnet.
 newData=workingCompleteData
 x=workingCompleteData
@@ -182,8 +170,9 @@ y=data.matrix(completeData[,c(2,5)])
 ```
 
 
-```{r CoxExplorationModels, echo = TRUE, eval = eval_cs3}
 
+
+```{r CoxExplorationModels,include=FALSE, eval = TRUE}
 fullDataCox<-as.data.frame(cbind(as.numeric(y[,2]),as.numeric(y[,1]),x))
 train_index <- sample(1:nrow(fullDataCox), 0.8 * nrow(fullDataCox))
 test_index <- setdiff(1:nrow(fullDataCox), train_index)
@@ -202,17 +191,16 @@ abcoxFull<-survival::survfit(coxAPS,newdata = test)
 KM<- survival::coxph(Surv(time=V1,event=V2) ~ 1, data = test)
 abKM<-survival::survfit(KM)
 abKMcompare<-cbind(abKM$time[abKM$time<=1631],1-abKM$surv[abKM$time<=1631])
-colnames(abKMcompare)<-c("Time","unadjusted")
+colnames(abKMcompare)<-c("Time","KM")
 
-baseCoxComparisonData<-cbind(c(1:1634),1-rowMeans(abcoxSPS$surv),1-rowMeans(abcoxAPS$surv),1-abKM$surv,1-rowMeans(abcoxFull$surv))
-colnames(baseCoxComparisonData)<-c("Time","SPS","APS","unadjusted","Full")
-library(RColorBrewer)
+baseCoxComparisonData<-cbind(abcoxSPS$time[abcoxSPS$time<=1631],1-rowMeans(abcoxSPS$surv[abcoxSPS$time<=1631,]),1-rowMeans(abcoxAPS$surv[abcoxSPS$time<=1631,]),1-abKM$surv,1-rowMeans(abcoxFull$surv[abcoxSPS$time<=1631,]))
+colnames(baseCoxComparisonData)<-c("Time","SPS","APS","Unadjusted","Full")
 myColors <- brewer.pal(5,"Dark2")
 ```
 
 
-## SPS vs APS
-```{r SPSvsAPS}
+# SPS vs APS
+```{r SPSvsAPS,include=TRUE}
 #Full
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
@@ -220,8 +208,8 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   scale_colour_manual(name = "Models",values = myColors[c(3,4)])
 ```
 
-## SPS vs APS
-```{r SPSvsAPSZoom}
+# SPS vs APS
+```{r SPSvsAPSZoom,include=TRUE}
 #ZOOM
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
@@ -231,65 +219,49 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
 ```
 
 
-## SPS vs. Kaplan-Meier
-```{r SPSvsKM}
+# SPS vs. Kaplan-Meier
+```{r SPSvsKM,include=TRUE}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(3,2,4)])
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
+  scale_colour_manual(name = "Models",values = myColors[c(3,4,2)])
 ```
 
-## SPS vs. Kaplan-Meier
-```{r SPSvsKMZoom}
+# SPS vs. Kaplan-Meier
+```{r SPSvsKMZoom,include=TRUE}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   scale_x_continuous(limits = c(1000, 1250))+
   scale_colour_manual(name = "Models",values = myColors[c(3,2,4)])
 ```
 
 
-## All covariates vs. physiology scores vs unadjusted
-```{r FullvsKM}
+# All covariates vs. physiology scores vs unadjusted
+```{r FullvsKM,include=TRUE}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, col = "All Covariates without SPS APS"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(1,3,2,4)])
 ```
 
 * Conclusion: linear associations without physiology scores performs similarly to physiology scores. (SPS and APS) (USE IPA)
-* 
+* Will use full model without physiology scores and unadjusted curve as comparative measures to our method based on casebase sampling.
 
 
-```{r}
+```{r ,include=TRUE}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="unadjusted"),lwd=2)+
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, colour = "Full"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(1,2)])
-
-```
-
-```{r cbHazardInteractions}, echo = TRUE, eval = eval_cs3}
-
-cbFull=casebase::fitSmoothHazard.fit(x[train_index,],y[train_index,],family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
-```
-Then, we take our model and use the absoluteRisk function to integrate and retrieve our absolute risk function.
-
-
-```{r CBabsoluteInteracts, echo = TRUE, eval = eval_cs3}
-#Estimating the absolute risk curve using the newData parameter.
-abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(completeData$d.time), 400),newdata = x[test_index,] , s="lambda.1se",method=c("numerical"))
-
-cbAbs=data.frame(casebaseAbsoluteInter[,1],rowMeans(casebaseAbsoluteInter[,-c(1)]))
 ```
 
 
-
-## Casebase Overview
+# Casebase Overview
 
 1. Clever sampling.
 2. Implicitly deals with censoring.
@@ -298,70 +270,65 @@ cbAbs=data.frame(casebaseAbsoluteInter[,1],rowMeans(casebaseAbsoluteInter[,-c(1)
 * Casebase is parametric, and allows different parametric fits by incorporation of the time component.
 * Package contains an implementation for generating *population-time* plots.
 
-## Casebase: Sampling
+# Casebase: Sampling
 
-```{r , echo=FALSE, warning=FALSE,message=FALSE}
-ERSPC=casebase::ERSPC
-
-ERSPC$ScrArm <- factor(ERSPC$ScrArm, 
-                       levels = c(0,1), 
-                       labels = c("Control group", "Screening group"))
-nobs <- nrow(ERSPC)
-ftime <- ERSPC$Follow.Up.Time
+```{r DataModel, echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
+nobs <- nrow(data)
+ftime <- data$d.time
 ord <- order(ftime, decreasing = FALSE)
-yCoords <- cbind(cumsum(ERSPC[ord, "DeadOfPrCa"] == 1),
-cumsum(ERSPC[ord, "DeadOfPrCa"] == 0))
+yCoords <- cbind(cumsum(data[ord, "death"] == 1),
+cumsum(data[ord, "death"] == 0))
 yCoords <- cbind(yCoords, nobs - rowSums(yCoords))
 aspectRatio <- 0.75
 height <- 8.5 * aspectRatio; width <- 11 * aspectRatio
-cases <- ERSPC[, "DeadOfPrCa"] == 1
-comps <- ERSPC[, "DeadOfPrCa"] == 2
+cases <- data$death == 1
+comps <-data$death == 2
 
 # randomly move the cases vertically
 moved_cases <- yCoords[cases[ord], 3] * runif(sum(cases))
 moved_comps <- yCoords[comps[ord], 3] * runif(sum(comps))
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
-xlab = 'Follow-up time (years)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 
 ```
 
-## Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE}
+# Casebase: Sampling
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
-xlab = 'Follow-up time (years)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
-col = "grey80")
+col = "grey60")
 ```
 
-## Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE}
+# Casebase: Sampling
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs), legend=TRUE,
-xlab = 'Follow-up time (years)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
-col = "grey80")
+col = "grey60")
 points((ftime[ord])[cases[ord]], yCoords[cases[ord],3], pch = 19,
-col = "firebrick3", cex = 0.5)
-legend("right", legend = c("Event"),
+col = "firebrick3", cex = 0.3)
+legend("right", legend = c("Death"),
 col = c("firebrick3", "dodgerblue2", "black"),
 pch = 19,cex=1.5)
 
 ```
 
-## Casebase: Sampling
+# Casebase: Sampling
 ```{r,echo=TRUE,eval=FALSE}
 casebase::popTime(Data,Event,Time)
 ```
-```{r , echo=FALSE, warning=FALSE,message=FALSE}
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
 
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
-xlab = 'Follow-up time (years)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
-col = "grey80")
+col = "grey60")
 points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
-col = "firebrick3", cex = 0.5)
+col = "firebrick3", cex = 0.3)
 legend("topright", legend = c("Relapse"),
 col = c("firebrick3", "dodgerblue2", "black"),
 pch = 19,cex=1.5)
@@ -370,30 +337,35 @@ ftime="Follow.Up.Time"
 ```
 
 
-## Casebase: Sampling
-```{r,echo=FALSE}
-ftime <- ERSPC$Follow.Up.Time
-plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
-xlab = 'Follow-up time (years)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-points((ftime[ord])[cases[ord]], yCoords[cases[ord],3], pch = 19,
-col = "white", cex = 0.5)
-lines(rep((ftime[ord])[cases[ord]], each=3), t(matrix(c(yCoords[cases[ord],3], rep(c(0,NA),each=length(yCoords[cases[ord],3]))), ncol=3)),col="grey80") 
-points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
-col = "firebrick3", cex = 0.5)
-legend("topright", legend = c("Relapse"),
-col = c("firebrick3", "dodgerblue2", "black"),
-pch = 19,cex=1.5)
-ERSPC$ScrArm<-factor(ERSPC$ScrArm)
-ERSPC$DeadOfPrCa<-as.numeric(ERSPC$DeadOfPrCa)
-```
+# log-odds = log hazard
 
-## Casebase: Parametric families
+$$e^{\hat{L}}=\frac{Pr(Y=1|x,t)}{Pr(Y=0|x,t)}=\frac{h(x,t)*B(x,t)}{b[B(x,t)/B]}=\frac{h(x,t)*B}{b} $$
+$$  \frac{b*e^{\hat{L}}}{B}=\hat{h(x,t)}$$
+$$log(\hat{h(x,t)})= \hat{L}+log(\frac{b}{B})$$
+
+* $\hat{L}=\beta X$
+* $b$ = base-series.
+* $B$ = Base.
+* *B(x,t)* =  Base at time $t$.
+
+
+# Wolfe's variance for case-to-base ratio
+
+$$(\frac{1}{c}+\frac{1}{b})^{-1}$$
+$$(\frac{1}{c}+\frac{1}{100c})^{-1}$$
+
+
+# maximum likelihood, with regularization
+
+* should I show it?
+
+# Casebase: Parametric families
 * We can now fit models of the form:
 $$\ log(h(t;\alpha,\beta))=g(t;\alpha)+\beta X$$
 * By changing the function $g(t;\alpha)$, we can model different parametric families easily:
 
 
-## Casebase: Parametric models
+# Casebase: Parametric models
 *Exponential*: $g(t;\alpha)$ is equal to a constant
 ```{r,echo=TRUE,eval=FALSE}
 casebase::fitSmoothHazard(status ~ X1 + X2)
@@ -408,56 +380,7 @@ casebase::fitSmoothHazard(status ~ log(time) + X1 + X2)
 ```
 
 
-## Death by prostate cancer: hazard ratios
-```{r,echo=FALSE, warning=FALSE,message=FALSE}
-wModel<-casebase::fitSmoothHazard(DeadOfPrCa ~
-log(Follow.Up.Time) + 
-ScrArm, data=casebase::ERSPC, ratio = 100)
-```
-```{r,echo=TRUE, warning=FALSE,message=FALSE,eval=FALSE}
-casebase::fitSmoothHazard(DeadOfPrCa~ log(Follow.Up.Time)+ 
-                          ScrArm, data=ERSPC, ratio = 100)
-```
-
-```{r echo=FALSE, warning=FALSE,message=FALSE, fig.height = 1, fig.width = 1, fig.align = "center",size='tiny',eval=FALSE}
-#summary(wModel)
-```
-
-
-
-## ERSPC Hazard comparison
-```{r echo=FALSE, warning=FALSE,message=FALSE}
-round_df <- function(x, digits) {
-    # round all numeric variables
-    # x: data frame 
-    # digits: number of digits to round
-    numeric_columns <- sapply(x, mode) == 'numeric'
-    x[numeric_columns] <-  round(x[numeric_columns], digits)
-    x
-}
-ERSPC$ScrArm<-factor(ERSPC$ScrArm)
-gModel <- casebase::fitSmoothHazard(DeadOfPrCa ~ Follow.Up.Time + ScrArm, data=ERSPC, ratio = 100)
-eModel <- casebase::fitSmoothHazard(DeadOfPrCa ~ ScrArm, data=ERSPC, ratio = 100)
-wModel <- casebase::fitSmoothHazard(DeadOfPrCa ~ log(Follow.Up.Time)
-+ ScrArm, data=ERSPC, ratio = 100)
-sModel <- casebase::fitSmoothHazard(DeadOfPrCa ~ splines::bs(Follow.Up.Time) + ScrArm, data=ERSPC, ratio = 100)
-coxModel<-survival::coxph(Surv(Follow.Up.Time,DeadOfPrCa ) ~ ScrArm, data=ERSPC)
-compareHazard1=as.data.frame(cbind(coxModel$coefficients, gModel$coefficients[3] ,eModel$coefficients[2],wModel$coefficients[3]))
-
-compareHazard1=as.data.frame(rbind(coxModel$coefficients, gModel$coefficients[3] ,eModel$coefficients[2], wModel$coefficients[3]))
-compareHazard2=as.data.frame(rbind(summary(coxModel)$coefficients[3], summary(gModel)$coefficients[3,2],summary(eModel)$coefficients[2,2], summary(wModel)$coefficients[3,2] ))
-compareHazard1=round_df(exp(compareHazard1),3)
-compareHazard2=round_df(exp(compareHazard2),3)
-names=c("Cox","Gompertz","Exponential","Weibull")
-compareHazard=cbind(names,compareHazard1,compareHazard2)
-colnames(compareHazard)=c('Model',"Hazard Ratio","Std.Error")
-
-
-knitr::kable(compareHazard,row.names = FALSE)
-```
-
-
-## Absolute Risk
+# Absolute Risk
 * We have a bunch of different parametric hazard models now.
 * To get the absolute risk, we need to evaluate the following equation in relation to the hazard:
 $$CI(x,t)=1-e^{-\int^{t}_{0}h(x,u)du}$$
@@ -467,42 +390,119 @@ $$CI(x,t)=1-e^{-\int^{t}_{0}h(x,u)du}$$
 * Lets use the weibull hazard
 
 
-## Casebase: Absolute Risk comparison
-```{r eval=FALSE,echo=TRUE}
-casebase::absoluteRisk(fit, time=5, covariate_profile)
+# models to be compared
+
+* casebase surv weibull-> LASSO
+* cox surv
+* cox surve -> LASSO
+* Kaplan-meier
+
+
+```{r supportSetUp, echo = FALSE, eval = TRUE}
+
+ratio=10  #universal ratio for TRUE
+#keep one individual out, at random, for which we will develop an 
+#absolute risk curve.
+#sam=sample(1:nrow(completeData), )
+#Set workingData to the remaining individuals in the data
+#workingData=completeData[-c(sam),]
+
+
+
+
+
+#x and y will be used to fit the casebase model under glmnet.
+#x=as.matrix(sparse.model.matrix(death~ .-d.time+0,data=workingData))
+y=data.matrix(train[,c(2,1)])
+colnames(y)<-c("death","d.time")
+x=data.matrix(train[,-c(2,1)])
+newData=data.matrix(test[,-c(2,1)])
 ```
 
+```{r coxHazAbsolute, echo = FALSE }
+#Create u and xCox, which will be used when fitting Cox with glmnet.
 
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-time_points <- seq(0,15, 1)
-newData=as.data.frame(cbind("Control group",2,0))
-colnames(newData)=c("ScrArm","Follow.Up.Time","DeadOfPrCa")
-#newData$ScrArm=factor(newData$ScrArm)
-#levels(newData$ScrArm)=c(0,1)
-# calculate cumulative incidence using casebase model
-wRisk <- absoluteRisk(object = wModel,time = time_points,newdata = newData)
-#plot(wRisk)
-coxRisk=survfit(coxModel, newdata = newData)
-#plot(coxRisk$time,coxRisk$cumhaz)
+u=survival::Surv(time = as.numeric(y[,2]), event = as.factor(y[,1]))
+
+xCox=as.matrix(cbind(data.frame("(Intercept)"=rep(1,each=length(x[,1]))),x))
+colnames(xCox)[1]="(Intercept)"
+
+#hazard for cox using glmnet
+coxNet=glmnet::cv.glmnet(x=x,y=u, family="cox",alpha=1)
+#convergence demonstrated in plot
+#plot(coxNet)
+#taking the coefficient estimates for later use
+nonzero_covariate_cox <- predict(coxNet, type = "nonzero", s = "lambda.1se")
+nonzero_coef_cox <- coef(coxNet, s = "lambda.1se")
+#creating a new dataset that only contains the covariates chosen through glmnet.
+#cleanCoxData<- as.data.frame(cbind(as.numeric(workingData$d.time),as.factor(workingData$death), xCox[,nonzero_covariate_cox$X1]))
+cleanCoxData<-as.data.frame(cbind(d.time=as.numeric(y[,2]),death=as.numeric(y[,1]),x[,nonzero_covariate_cox$X1]))
+#newDataCox<-xCox[sam,nonzero_covariate_cox$X1]
+#fitting a cox model using regular estimation, however we will not keep it.
+#this is used more as an object place holder.
+coxNet <- survival::coxph(Surv(time=d.time,event=death) ~ ., data = cleanCoxData)
+#The coefficients of this object will be replaced with the estimates from coxNet.
+#Doing so makes it so that everything is invalid aside from the coefficients.
+#In this case, all we need to estimate the absolute risk is the coefficients.
+#Std. error would be incorrect here, if we were to draw error bars.
+coxNet$coefficients<-nonzero_coef_cox@x
+#Fitting absolute risk curve for cox+glmnet. -1 to remove intercept
+#posCox=nonzero_covariate_cox$X1
+#newDataCoxI=cleanCoxDataI[,posCox]
+
+abcoxNet<-survival::survfit(coxNet,type="breslow",newdata=as.data.frame(newData[,nonzero_covariate_cox$X1]))
 
 
-# cumulative incidence function for the Cox model
-plot(coxRisk$time,coxRisk$cumhaz, type="l",lwd=2,
-xlab = "Years", ylab = "Cumulative Incidence (%)", fun = "event",
-xlim = c(0,15), conf.int = F, col = "red", 
-main = sprintf("Estimated Cumulative Incidence (risk) With No Screening"),cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+abCN=as.data.frame(cbind(abcoxNet$time, 1-rowMeans(abcoxNet$surv)))
+colnames(abCN)<-c("Time","Absolute risk")
+abCN$Model="Coxnet"
+abCN=abCN[abCN$Time<=max(abKMcompare[,1]),]
+#plot(abCN[,1],1-abCN[,2])
+```
 
-# add casebase curve with legend
-lines(wRisk[,1], wRisk[,2], type = "l", col = "blue",lwd=2)
-legend("bottomright", 
-legend = c("semi-parametric (Cox)", "parametric (casebase)"), 
-col = c("red","blue"),
-lty = c(1, 1), 
-bg = "gray90",cex=1.5)
+```{r cbHazard}, echo = FALSE, eval = TRUE}
+
+cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
+```
+
+```{r CBabsolute, echo = FALSE, eval = TRUE}
+#Estimating the absolute risk curve using the newData parameter.
+abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 1),newdata = newData , s="lambda.1se",method=c("numerical"))
+abCB=data.frame(abCbFull[,1],rowMeans(abCbFull[,-c(1)]))
+
+colnames(abCB)<-c("Time","Absolute risk")
+abCB$Model="Penalized logistic"
+
+ab=rbind(abCB,abCN)
 
 ```
 
-## Summary
+# Survival comparison
+
+```{r include=TRUE}
+ggplot(as.data.frame(ab), aes(Time)) + 
+  geom_line(aes(y = `Absolute risk`, colour = Model),lwd=2)+
+  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
+  scale_colour_manual(name = "Models",values = myColors[c(1,2,3)])
+```
+
+# Covariate comparison plot
+
+* there will be a lollipop plot but I wanted to sleep
+
+# IPA score
+
+* Brier score equation
+* Calibration and discrimination
+* IPA score equation
+* In progress
+
+# Future work
+
+* survival GWAS
+
+
+# Summary
 
 * Casebase sampling implicitly incorporates censoring and permits the use of GLMs and the tools associated with them
 * The casebase package contains tools to generate:
@@ -512,7 +512,7 @@ bg = "gray90",cex=1.5)
     * Casebase can deal with competing risks.
 
 
-## References 1
+# References 1
 
 1.Hanley, James A, and Olli S Miettinen. 2009. "Fitting Smooth-in-Time Prognostic Risk Functions via Logistic Regression." *The International Journal of Biostatistics 5 (1)*.
 
@@ -520,7 +520,7 @@ bg = "gray90",cex=1.5)
 
 3.Saarela, Olli. 2015. "A Case-Base Sampling Method for Estimating Recurrent Event Intensities." *Lifetime Data Analysis*. Springer, 1–17
 
-## References 2
+# References 2
 
 4.Schroder FH, et al., for the ERSPC Investigators.Screening and Prostate-Cancer Mortality in a Randomized European Study. *N Engl J Med* 2009;360:1320-8.
 
@@ -528,7 +528,7 @@ bg = "gray90",cex=1.5)
 
 6.Turgeon, M. (2017, June 10). Retrieved May 05, 2019, from https://www.maxturgeon.ca/slides/MTurgeon-2017-Student-Conference.pdf
 
-## Tutorial and Slides
+# Tutorial and Slides
 \begin{center}
 Tutorial:
 
