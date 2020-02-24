@@ -8,6 +8,7 @@ output:
   beamer_presentation:
     incremental: no
     fig_caption: false
+
 ---
 
 ```{r setup, include=FALSE}
@@ -16,6 +17,8 @@ set.seed(1)
 knitr::opts_chunk$set( warning=FALSE,message=FALSE,echo=FALSE)
 knitr::opts_chunk$set(dev = 'pdf')
 ```
+
+
 
 # Popular methods in time-to-event analysis 
 
@@ -38,7 +41,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 ![](coxquote.png)
 
-# Index
+# Index pt 2.
 
 * SUPPORT study
 * Casebase sampling
@@ -272,10 +275,11 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
 
 # Casebase: Sampling
 
-```{r DataModel, echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
+```{r DataModel, echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
 nobs <- nrow(data)
 ftime <- data$d.time
 ord <- order(ftime, decreasing = FALSE)
+#ordSample=order(sample(ord,1000))
 yCoords <- cbind(cumsum(data[ord, "death"] == 1),
 cumsum(data[ord, "death"] == 0))
 yCoords <- cbind(yCoords, nobs - rowSums(yCoords))
@@ -283,35 +287,39 @@ aspectRatio <- 0.75
 height <- 8.5 * aspectRatio; width <- 11 * aspectRatio
 cases <- data$death == 1
 comps <-data$death == 2
-
+bases <-data$death == 0
 # randomly move the cases vertically
 moved_cases <- yCoords[cases[ord], 3] * runif(sum(cases))
 moved_comps <- yCoords[comps[ord], 3] * runif(sum(comps))
+moved_bases <- yCoords[bases[ord], 3] * runif(sum(bases))
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-
+ptsz=1
 ```
 
 # Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-polygon(c(0, 0, ftime[ord], max(ftime), 0),
+a=polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
 col = "grey60")
+legend("topright", legend = c("Base"),
+col = c("grey60"),
+pch = 19,cex=1.5)
 ```
 
 # Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs), legend=TRUE,
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
 col = "grey60")
 points((ftime[ord])[cases[ord]], yCoords[cases[ord],3], pch = 19,
-col = "firebrick3", cex = 0.3)
-legend("right", legend = c("Death"),
-col = c("firebrick3", "dodgerblue2", "black"),
+col = "firebrick3", cex = ptsz)
+legend("topright", legend = c("Base","Death"),
+col = c("grey60","firebrick3"),
 pch = 19,cex=1.5)
 
 ```
@@ -320,7 +328,7 @@ pch = 19,cex=1.5)
 ```{r,echo=TRUE,eval=FALSE}
 casebase::popTime(Data,Event,Time)
 ```
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE}
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
 
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
@@ -328,13 +336,18 @@ polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
 col = "grey60")
 points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
-col = "firebrick3", cex = 0.3)
-legend("topright", legend = c("Relapse"),
-col = c("firebrick3", "dodgerblue2", "black"),
+col = "firebrick3", cex = ptsz)
+#points((ftime[ord])[bases[ord]], moved_bases, pch = 19,
+#col = "blue", cex = ptsz)
+legend("topright", legend = c("Base","Death"),
+col = c("grey60","firebrick3"),
 pch = 19,cex=1.5)
 death="DeadOfPrCa"
 ftime="Follow.Up.Time"
+
+
 ```
+
 
 
 # log-odds = log hazard
@@ -467,7 +480,7 @@ cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="de
 
 ```{r CBabsolute, echo = FALSE, eval = TRUE}
 #Estimating the absolute risk curve using the newData parameter.
-abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 1),newdata = newData , s="lambda.1se",method=c("numerical"))
+abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 1000),newdata = newData , s="lambda.1se",method=c("numerical"))
 abCB=data.frame(abCbFull[,1],rowMeans(abCbFull[,-c(1)]))
 
 colnames(abCB)<-c("Time","Absolute risk")
@@ -486,9 +499,7 @@ ggplot(as.data.frame(ab), aes(Time)) +
   scale_colour_manual(name = "Models",values = myColors[c(1,2,3)])
 ```
 
-# Covariate comparison plot
 
-* there will be a lollipop plot but I wanted to sleep
 
 # IPA score
 
