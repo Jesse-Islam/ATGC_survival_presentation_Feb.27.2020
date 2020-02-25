@@ -32,10 +32,10 @@ knitr::opts_chunk$set(dev = 'pdf')
     
 # Motivations for a new method
 
-* Julien and Hanley found that survival analysis rarely produces prognostic functions, even though the software is widely available in cox regression packages. [1]
-* They believe the stepwise nature is the reason, as it reduces interpretability. [1]
-* Want to easily model non-proportional hazards. [1]
-* A streamlined approach for reaching a **smooth absolute risk** curve. [1]
+* Julien and Hanley found that survival analysis rarely produces prognostic functions, even though the software is widely available in cox regression packages. [2]
+* They believe the stepwise nature is the reason, as it reduces interpretability. [2]
+* Want to easily model non-proportional hazards. [2]
+* A streamlined approach for reaching a **smooth absolute risk** curve. [2]
 
 
 # Dr. Cox's perspective
@@ -46,13 +46,13 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 * SUPPORT study
 * Casebase sampling
-* Logistic regression on survival data
+* Penalized logistic regression on survival data
 * Maximum likelihood with regularization
 * Absolute risk comparison
 * Future work
 * References
 
-# SUPPORT dataset
+# SUPPORT dataset (knaus)
 
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
@@ -61,7 +61,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Follow-up-time: 5.56 years.
 * 68% incidence rate.
 
-# SUPPORT manual imputation
+# SUPPORT manual imputation (knaus)
 
 * Notorious for missing data
 \begin{table}[]
@@ -79,7 +79,7 @@ Urine output           & 2502                 \\
 White blood count      & 9 (thousands)        \\ \hline
 \end{tabular}%
 }
-\caption{Suggested imputation values. {[}Support site reference{]}}
+\caption{Suggested imputation values. {[}3{]}}
 \label{tab:my-table}
 \end{table}
 
@@ -91,35 +91,42 @@ White blood count      & 9 (thousands)        \\ \hline
 2. logreg(Logistic Regression) – For Binary Variables (with 2 levels)
 3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
 
-# Removed variables
+# Removed variables (knaus)
 
 * Hospital Charges.
 * Patient ratio of costs to charges.
 * Patient Micro-costs.
 * functional disability (ordinal).
 * Income (ordinal).
+* Surrogate activities of daily living.
 
-# Variable overview
+# Variable overview (knaus)
 
-* Age, sex, race, education, follow-up time, death. (6)
+* **Response variables**
+* follow-up time, death.
+
+* **Covariates**
+* Age, sex, race, education (6)
 * Disease group/class, Number of comorbidities. (3)
 * Income, costs. (4)
 * Coma score, average Therapeutic Intervention Scoring System (2)
 * Physiological variables. (11)
-* Activities of daily living. (3)
+* Activities of daily living. (2)
 * Previous model findings. (8)
 
-# Original SUPPORT analysis
+
+
+# Original SUPPORT analysis (knaus)
 
 * Determined SUPPORT prognostic model on phase I (4301 individuals).
 * Tested on Phase II (4028 individuals).
 * Both on the scale of 180 days.
 
-# Original SUPPORT analysis
+# Original SUPPORT analysis (knaus)
 
 * Write out complicated model?????
 
-# Original SUPPORT analysis
+# Original SUPPORT analysis (knaus)
 
 * image of SPS vs APS ???????
 
@@ -380,15 +387,15 @@ pch = 19,cex=1.5)
 
 # log-odds = log hazard
 
- $$e^{L}=\frac{h(x,t)*B}{b} $$
- $$  \frac{b*e^{L}}{B}=\hat{h}(x,t)$$
+ $$e^{L}=\frac{\hat{h}(x,t)*B}{b} $$
+ $$ \hat{h}(x,t)= \frac{b*e^{L}}{B}$$
  $$log(\hat{h}(x,t))= L+log(\frac{b}{B})$$
 
 
 
 
 
-# Maximum log-likelihood, with regularization
+# Maximum log-likelihood [1]
 
  $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}})  $$
  
@@ -434,10 +441,13 @@ $$CI(x,t)=1-e^{-\int^{t}_{0}h(x,u)du}$$
 
 # models to be compared
 
-* casebase surv weibull-> LASSO
-* cox surv
-* cox surve -> LASSO
-* Kaplan-meier
+* Recall: Case study to demonstrate regularization using our method.
+
+* (death, time) ~ 1
+* (death, time) ~  $\beta X$
+* (death, time) ~  $\beta X$ <--Lasso
+* death ~ log(time) + $\beta X$ <--Lasso 
+
 
 
 ```{r supportSetUp, echo = FALSE, eval = TRUE}
@@ -463,7 +473,7 @@ newData=data.matrix(test[,-c(2,1)])
 u=survival::Surv(time = as.numeric(y[,2]), event = as.factor(y[,1]))
 
 xCox=as.matrix(cbind(data.frame("(Intercept)"=rep(1,each=length(x[,1]))),x))
-colnames(xCox)[1]="(Intercept)"
+colnames(xCox)[2]="(Intercept)"
 
 #hazard for cox using glmnet
 coxNet=glmnet::cv.glmnet(x=x,y=u, family="cox",alpha=1,standardize = TRUE)
@@ -532,23 +542,33 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 # References 1
 
-1.Hanley, James A, and Olli S Miettinen. 2009. "Fitting Smooth-in-Time Prognostic Risk Functions via Logistic Regression." *The International Journal of Biostatistics 5 (1)*.
+1.Czepiel, S. A. (2002). Maximum likelihood estimation of logistic regression models: theory and implementation. Available at czep. net/stat/mlelr. pdf, 1825252548-1564645290. ????
 
-2.Saarela, Olli, and Elja Arjas. 2015. "Non-Parametric Bayesian Hazard Regression for Chronic Disease Risk Assessment." Scandinavian Journal of Statistics 42 (2). Wiley Online Library: 609–26. 
 
-3.Saarela, Olli. 2015. "A Case-Base Sampling Method for Estimating Recurrent Event Intensities." *Lifetime Data Analysis*. Springer, 1–17
+2.Hanley, James A, and Olli S Miettinen. 2009. "Fitting Smooth-in-Time Prognostic Risk Functions via Logistic Regression." *The International Journal of Biostatistics 5 (1)*.
+
+3.Harrell, F. (2020). SupportDesc < Main < Vanderbilt Biostatistics Wiki. [online] Biostat.mc.vanderbilt.edu. Available at: http://biostat.mc.vanderbilt.edu/wiki/Main/SupportDesc [Accessed 25 Feb. 2020].
 
 # References 2
 
-4. REFFERENCE TO SUPPORT DATASET????.
+4.Knaus, W. A., Harrell, F. E., Lynn, J., Goldman, L., Phillips, R. S., Connors, A. F., ... & Layde, P. (1995). The SUPPORT prognostic model: Objective estimates of survival for seriously ill hospitalized adults. Annals of internal medicine, 122(3), 191-203.
 
-5.Scrucca L, Santucci A, Aversa F. Competing risk analysis using R: an easy guide for clinicians. *Bone Marrow Transplant*. 2007 Aug;40(4):381-7. doi: 10.1038/sj.bmt.1705727.
+5.Saarela, Olli, and Elja Arjas. 2015. "Non-Parametric Bayesian Hazard Regression for Chronic Disease Risk Assessment." Scandinavian Journal of Statistics 42 (2). Wiley Online Library: 609–26. 
 
-6.Turgeon, M. (2017, June 10). Retrieved May 05, 2019, from https://www.maxturgeon.ca/slides/MTurgeon-2017-Student-Conference.pdf
+6.Saarela, Olli. 2015. "A Case-Base Sampling Method for Estimating Recurrent Event Intensities." *Lifetime Data Analysis*. Springer, 1–17
 
-Czepiel, S. A. (2002). Maximum likelihood estimation of logistic regression models: theory and implementation. Available at czep. net/stat/mlelr. pdf, 1825252548-1564645290. ????
+# References 3
+
+
+
+7.Scrucca L, Santucci A, Aversa F. Competing risk analysis using R: an easy guide for clinicians. *Bone Marrow Transplant*. 2007 Aug;40(4):381-7. doi: 10.1038/sj.bmt.1705727.
+
+8.Turgeon, M. (2017, June 10). Retrieved May 05, 2019, from https://www.maxturgeon.ca/slides/MTurgeon-2017-Student-Conference.pdf
+
+
 
 # Tutorial and Slides
+
 \begin{center}
 Tutorial:
 
