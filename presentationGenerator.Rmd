@@ -1,5 +1,5 @@
 ---
-title: "Absolute Risk integration using penalized logistic regression"
+title: "Absolute risk integration using penalized logistic regression"
 author: "Jesse Islam"
 date: "2/16/2020"
 mathspec: true
@@ -88,7 +88,7 @@ White blood count      & 9 (thousands)        \\ \hline
 * mice imputation package (R)
 
 1. PMM (Predictive Mean Matching)  – For numeric variables
-2. logreg(Logistic Regression) – For Binary Variables( with 2 levels)
+2. logreg(Logistic Regression) – For Binary Variables (with 2 levels)
 3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
 4. Proportional odds model (ordered, >= 2 levels)
 
@@ -287,11 +287,10 @@ aspectRatio <- 0.75
 height <- 8.5 * aspectRatio; width <- 11 * aspectRatio
 cases <- data$death == 1
 comps <-data$death == 2
-bases <-data$death == 0
 # randomly move the cases vertically
 moved_cases <- yCoords[cases[ord], 3] * runif(sum(cases))
 moved_comps <- yCoords[comps[ord], 3] * runif(sum(comps))
-moved_bases <- yCoords[bases[ord], 3] * runif(sum(bases))
+moved_bases <- yCoords[cases[ord], 3] * runif(sum(cases))
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 ptsz=1
@@ -342,8 +341,29 @@ col = "firebrick3", cex = ptsz)
 legend("topright", legend = c("Base","Death"),
 col = c("grey60","firebrick3"),
 pch = 19,cex=1.5)
-death="DeadOfPrCa"
-ftime="Follow.Up.Time"
+
+
+```
+# Casebase: Sampling
+```{r,echo=TRUE,eval=FALSE}
+casebase::popTime(Data,Event,Time)
+```
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
+
+plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+polygon(c(0, 0, ftime[ord], max(ftime), 0),
+c(0, nobs, yCoords[,3], 0, 0),
+col = "grey60")
+points((ftime[ord])[cases[ord]], moved_bases, pch = 19,
+col = "blue", cex = ptsz)
+points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
+col = "firebrick3", cex = ptsz)
+#points((ftime[ord])[bases[ord]], moved_bases, pch = 19,
+#col = "blue", cex = ptsz)
+legend("topright", legend = c("Base","case-series (Death)","base-series"),
+col = c("grey60","firebrick3", "blue"),
+pch = 19,cex=1.5)
 
 
 ```
@@ -510,17 +530,7 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 # Future work
 
-* survival GWAS
-
-
-# Summary
-
-* Casebase sampling implicitly incorporates censoring and permits the use of GLMs and the tools associated with them
-* The casebase package contains tools to generate:
-    * Population-Time plots
-    * Hazard functions
-    * Absolute Risk
-    * Casebase can deal with competing risks.
+* Survival GWAS
 
 
 # References 1
@@ -533,7 +543,7 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 # References 2
 
-4.Schroder FH, et al., for the ERSPC Investigators.Screening and Prostate-Cancer Mortality in a Randomized European Study. *N Engl J Med* 2009;360:1320-8.
+4. REFFERENCE TO SUPPORT DATASET????.
 
 5.Scrucca L, Santucci A, Aversa F. Competing risk analysis using R: an easy guide for clinicians. *Bone Marrow Transplant*. 2007 Aug;40(4):381-7. doi: 10.1038/sj.bmt.1705727.
 
@@ -547,8 +557,7 @@ http://sahirbhatnagar.com/casebase/
 
 Slides:
 
-https://github.com/Jesse-Islam/UseR--CaseBase-Presentation
-
+https://github.com/Jesse-Islam/ATGC_survival_presentation_Feb.27.2020
 
 Questions?
 \end{center}
