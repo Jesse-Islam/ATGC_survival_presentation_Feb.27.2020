@@ -1,14 +1,15 @@
 ---
 title: "Absolute risk integration using penalized logistic regression"
 author: "Jesse Islam"
-date: "2/16/2020"
+date: "2/27/2020"
 mathspec: true
 theme: "metropolis"
 output:
   beamer_presentation:
-    incremental: no
+    incremental: TRUE
     fig_caption: false
-
+header-includes:
+  \usepackage{xcolor}
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +48,6 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Casebase sampling
 * Logistic regression on survival data
 * Maximum likelihood with regularization
-* Comparing hazard models in SUPPORT study
 * Absolute risk comparison
 * Future work
 * References
@@ -85,19 +85,18 @@ White blood count      & 9 (thousands)        \\ \hline
 
 # SUPPORT automated imputation
 
-* mice imputation package (R)
+* Mice imputation package (R)
 
 1. PMM (Predictive Mean Matching)  – For numeric variables
 2. logreg(Logistic Regression) – For Binary Variables (with 2 levels)
 3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
-4. Proportional odds model (ordered, >= 2 levels)
 
 # Removed variables
 
 * Hospital Charges.
 * Patient ratio of costs to charges.
 * Patient Micro-costs.
-* Ordinal functional disability.
+* functional disability (ordinal).
 * Income (ordinal).
 
 # Variable overview
@@ -115,7 +114,13 @@ White blood count      & 9 (thousands)        \\ \hline
 * Determined SUPPORT prognostic model on phase I (4301 individuals).
 * Tested on Phase II (4028 individuals).
 * Both on the scale of 180 days.
+
+# Original SUPPORT analysis
+
 * Write out complicated model?????
+
+# Original SUPPORT analysis
+
 * image of SPS vs APS ???????
 
 # SUPPORT question
@@ -172,9 +177,6 @@ x=workingCompleteData
 y=data.matrix(completeData[,c(2,5)])
 ```
 
-
-
-
 ```{r CoxExplorationModels,include=FALSE, eval = TRUE}
 fullDataCox<-as.data.frame(cbind(as.numeric(y[,2]),as.numeric(y[,1]),x))
 train_index <- sample(1:nrow(fullDataCox), 0.8 * nrow(fullDataCox))
@@ -199,72 +201,53 @@ colnames(abKMcompare)<-c("Time","KM")
 baseCoxComparisonData<-cbind(abcoxSPS$time[abcoxSPS$time<=1631],1-rowMeans(abcoxSPS$surv[abcoxSPS$time<=1631,]),1-rowMeans(abcoxAPS$surv[abcoxSPS$time<=1631,]),1-abKM$surv,1-rowMeans(abcoxFull$surv[abcoxSPS$time<=1631,]))
 colnames(baseCoxComparisonData)<-c("Time","SPS","APS","Unadjusted","Full")
 myColors <- brewer.pal(5,"Dark2")
+FigureWidth='90%'
 ```
 
 
 # SPS vs APS
-```{r SPSvsAPS,include=TRUE}
+```{r SPSvsAPS,include=TRUE, out.width = FigureWidth}
 #Full
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
-  scale_colour_manual(name = "Models",values = myColors[c(3,4)])
-```
-
-# SPS vs APS
-```{r SPSvsAPSZoom,include=TRUE}
-#ZOOM
-ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
- scale_x_continuous(limits = c(1000, 1250))+
   scale_colour_manual(name = "Models",values = myColors[c(3,4)])
 ```
-
 
 # SPS vs. Kaplan-Meier
-```{r SPSvsKM,include=TRUE}
+```{r SPSvsKM,include=TRUE, out.width = FigureWidth}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(3,4,2)])
 ```
 
-# SPS vs. Kaplan-Meier
-```{r SPSvsKMZoom,include=TRUE}
-ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
-  geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
-  geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
-  scale_x_continuous(limits = c(1000, 1250))+
-  scale_colour_manual(name = "Models",values = myColors[c(3,2,4)])
-```
-
-
 # All covariates vs. physiology scores vs unadjusted
-```{r FullvsKM,include=TRUE}
+```{r FullvsKM,include=TRUE, out.width = FigureWidth}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
-  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) + 
+  geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, col = "All Covariates without SPS APS"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(1,3,2,4)])
+  scale_colour_manual(name = "Models",values = myColors[c(1,3,4,2)])
 ```
 
-* Conclusion: linear associations without physiology scores performs similarly to physiology scores. (SPS and APS) (USE IPA)
-* Will use full model without physiology scores and unadjusted curve as comparative measures to our method based on casebase sampling.
 
-
-```{r ,include=TRUE}
+# Chosen absolute risk comparisons
+```{r ,include=TRUE, out.width = FigureWidth}
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, colour = "Full"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(1,2)])
 ```
 
+Conclusion:
 
-# Casebase Overview
+* Linear associations without physiology scores perform similarly to physiology scores.
+
+
+# Casebase sampling overview
 
 1. Clever sampling.
 2. Implicitly deals with censoring.
@@ -275,7 +258,7 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
 
 # Casebase: Sampling
 
-```{r DataModel, echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
+```{r DataModel, echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
 nobs <- nrow(data)
 ftime <- data$d.time
 ord <- order(ftime, decreasing = FALSE)
@@ -293,14 +276,14 @@ moved_comps <- yCoords[comps[ord], 3] * runif(sum(comps))
 moved_bases <- yCoords[cases[ord], 3] * runif(sum(cases))
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-ptsz=1
+ptsz=0.5
 ```
 
 # Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-a=polygon(c(0, 0, ftime[ord], max(ftime), 0),
+polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
 col = "grey60")
 legend("topright", legend = c("Base"),
@@ -309,46 +292,38 @@ pch = 19,cex=1.5)
 ```
 
 # Casebase: Sampling
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
-plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs), legend=TRUE,
-xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-polygon(c(0, 0, ftime[ord], max(ftime), 0),
-c(0, nobs, yCoords[,3], 0, 0),
-col = "grey60")
-points((ftime[ord])[cases[ord]], yCoords[cases[ord],3], pch = 19,
-col = "firebrick3", cex = ptsz)
-legend("topright", legend = c("Base","Death"),
-col = c("grey60","firebrick3"),
-pch = 19,cex=1.5)
-
-```
-
-# Casebase: Sampling
-```{r,echo=TRUE,eval=FALSE}
-casebase::popTime(Data,Event,Time)
-```
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
-
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 polygon(c(0, 0, ftime[ord], max(ftime), 0),
 c(0, nobs, yCoords[,3], 0, 0),
 col = "grey60")
-points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
-col = "firebrick3", cex = ptsz)
-#points((ftime[ord])[bases[ord]], moved_bases, pch = 19,
-#col = "blue", cex = ptsz)
-legend("topright", legend = c("Base","Death"),
-col = c("grey60","firebrick3"),
+points((ftime[ord])[cases[ord]], moved_bases, pch = 19,
+col = "blue", cex = ptsz)
+legend("topright", legend = c("Base","base-series"),
+col = c("grey60","blue"),
 pch = 19,cex=1.5)
-
-
 ```
+
 # Casebase: Sampling
-```{r,echo=TRUE,eval=FALSE}
-casebase::popTime(Data,Event,Time)
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
+plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+polygon(c(0, 0, ftime[ord], max(ftime), 0),
+c(0, nobs, yCoords[,3], 0, 0),
+col = "grey60")
+points((ftime[ord])[cases[ord]], moved_bases, pch = 19,
+col = "blue", cex = ptsz)
+points((ftime[ord])[cases[ord]], yCoords[cases[ord],3], pch = 19,
+col = "firebrick3", cex = ptsz)
+legend("topright", legend = c("Base","base-series","case-series (Death)"),
+col = c("grey60","blue","firebrick3"),
+pch = 19,cex=1.5)
 ```
-```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = '80%'}
+
+# Casebase: Sampling
+
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
 
 plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
 xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
@@ -368,30 +343,64 @@ pch = 19,cex=1.5)
 
 ```
 
+# Casebase: Sampling
+
+$$e^{L}=\frac{Pr(Y=1|x,t)}{Pr(Y=0|x,t)}=\frac{h(x,t)*B(x,t)}{b[B(x,t)/B]}=\frac{h(x,t)*B}{b}$$
+* $L=\beta X$
+* $b$ = base-series.
+* $B$ = Base.
+* *B(x,t)* =  Risk-set for survival time $t$.
+
+
+# Casebase: Sampling
+
+$e^{L}=\frac{Pr(Y=1|x,t)}{Pr(Y=0|x,t)}=\frac{h(x,t)*B(x,t)}{b[B(x,t)/B]}=\frac{h(x,t)*B}{b}$
+
+```{r , echo=FALSE, warning=FALSE,message=FALSE,include=TRUE, out.width = FigureWidth}
+
+plot(0, type = 'n', xlim = c(0, max(ftime)), ylim = c(0, nobs),
+xlab = 'Follow-up time (days)', ylab = 'Population',cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+polygon(c(0, 0, ftime[ord], max(ftime), 0),
+c(0, nobs, yCoords[,3], 0, 0),
+col = "grey60")
+points((ftime[ord])[cases[ord]], moved_bases, pch = 19,
+col = "blue", cex = ptsz)
+points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
+col = "firebrick3", cex = ptsz)
+#points((ftime[ord])[bases[ord]], moved_bases, pch = 19,
+#col = "blue", cex = ptsz)
+abline(v=990,lwd=2)
+abline(v=1010,lwd=2)
+legend("topright", legend = c("Base","case-series (Death)","base-series"),
+col = c("grey60","firebrick3", "blue"),
+pch = 19,cex=1.5)
+```
+
 
 
 # log-odds = log hazard
 
-$$e^{\hat{L}}=\frac{Pr(Y=1|x,t)}{Pr(Y=0|x,t)}=\frac{h(x,t)*B(x,t)}{b[B(x,t)/B]}=\frac{h(x,t)*B}{b} $$
-$$  \frac{b*e^{\hat{L}}}{B}=\hat{h(x,t)}$$
-$$log(\hat{h(x,t)})= \hat{L}+log(\frac{b}{B})$$
-
-* $\hat{L}=\beta X$
-* $b$ = base-series.
-* $B$ = Base.
-* *B(x,t)* =  Base at time $t$.
+ $$e^{L}=\frac{h(x,t)*B}{b} $$
+ $$  \frac{b*e^{L}}{B}=\hat{h}(x,t)$$
+ $$log(\hat{h}(x,t))= L+log(\frac{b}{B})$$
 
 
-# Wolfe's variance for case-to-base ratio
-
-$$(\frac{1}{c}+\frac{1}{b})^{-1}$$
-$$(\frac{1}{c}+\frac{1}{100c})^{-1}$$
 
 
-# maximum likelihood, with regularization
 
-* should I show it?
+# Maximum log-likelihood, with regularization
 
+ $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}})  $$
+ 
+# Maximum log-likelihood, with offset
+
+ $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}}})$$
+
+
+# Maximum log-likelihood, with offset and lasso
+
+ $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}}})  \textcolor{red}{-\lambda||\beta||}$$
+ 
 # Casebase: Parametric families
 * We can now fit models of the form:
 $$\ log(h(t;\alpha,\beta))=g(t;\alpha)+\beta X$$
@@ -440,10 +449,6 @@ ratio=10  #universal ratio for TRUE
 #Set workingData to the remaining individuals in the data
 #workingData=completeData[-c(sam),]
 
-
-
-
-
 #x and y will be used to fit the casebase model under glmnet.
 #x=as.matrix(sparse.model.matrix(death~ .-d.time+0,data=workingData))
 y=data.matrix(train[,c(2,1)])
@@ -461,7 +466,7 @@ xCox=as.matrix(cbind(data.frame("(Intercept)"=rep(1,each=length(x[,1]))),x))
 colnames(xCox)[1]="(Intercept)"
 
 #hazard for cox using glmnet
-coxNet=glmnet::cv.glmnet(x=x,y=u, family="cox",alpha=1)
+coxNet=glmnet::cv.glmnet(x=x,y=u, family="cox",alpha=1,standardize = TRUE)
 #convergence demonstrated in plot
 #plot(coxNet)
 #taking the coefficient estimates for later use
@@ -495,7 +500,7 @@ abCN=abCN[abCN$Time<=max(abKMcompare[,1]),]
 
 ```{r cbHazard}, echo = FALSE, eval = TRUE}
 
-cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio)
+cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="death",formula_time = ~log(d.time),alpha=1,ratio=ratio,standardize = TRUE)
 ```
 
 ```{r CBabsolute, echo = FALSE, eval = TRUE}
@@ -519,17 +524,9 @@ ggplot(as.data.frame(ab), aes(Time)) +
   scale_colour_manual(name = "Models",values = myColors[c(1,2,3)])
 ```
 
-
-
-# IPA score
-
-* Brier score equation
-* Calibration and discrimination
-* IPA score equation
-* In progress
-
 # Future work
 
+* IPA score
 * Survival GWAS
 
 
@@ -548,6 +545,8 @@ ggplot(as.data.frame(ab), aes(Time)) +
 5.Scrucca L, Santucci A, Aversa F. Competing risk analysis using R: an easy guide for clinicians. *Bone Marrow Transplant*. 2007 Aug;40(4):381-7. doi: 10.1038/sj.bmt.1705727.
 
 6.Turgeon, M. (2017, June 10). Retrieved May 05, 2019, from https://www.maxturgeon.ca/slides/MTurgeon-2017-Student-Conference.pdf
+
+Czepiel, S. A. (2002). Maximum likelihood estimation of logistic regression models: theory and implementation. Available at czep. net/stat/mlelr. pdf, 1825252548-1564645290. ????
 
 # Tutorial and Slides
 \begin{center}

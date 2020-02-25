@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.16)  21 FEB 2020 04:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.25)  25 FEB 2020 02:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **presentationGenerator.tex
 (./presentationGenerator.tex
-LaTeX2e <2020-02-02> patch level 2
-L3 programming layer <2020-02-14> (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf
+LaTeX2e <2020-02-02> patch level 3
+L3 programming layer <2020-02-21> (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/09/29 v3.57 A class for typesetting presentations
 
@@ -986,30 +986,30 @@ line 40.
 )
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
 d-pdfmode.def
-File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+File: l3backend-pdfmode.def 2020-02-21 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count332
 \l__pdf_internal_box=\box80
 ) (./presentationGenerator.aux)
 \openout1 = `presentationGenerator.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 152.
-LaTeX Font Info:    ... okay on input line 152.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1057,7 +1057,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 )) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring OFF on input line 152.
+Package hyperref Info: Link coloring OFF on input line 153.
 
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -1073,59 +1073,59 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count333
 )
-LaTeX Info: Redefining \ref on input line 152.
-LaTeX Info: Redefining \pageref on input line 152.
-LaTeX Info: Redefining \nameref on input line 152.
+LaTeX Info: Redefining \ref on input line 153.
+LaTeX Info: Redefining \pageref on input line 153.
+LaTeX Info: Redefining \nameref on input line 153.
 (./presentationGenerator.out) (./presentationGenerator.out)
 \@outlinefile=\write6
 \openout6 = `presentationGenerator.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 152.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 153.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 152.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 153.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 152.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 153.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 152.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 153.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 152.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 152.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 153.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 152.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 152.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 152.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 153.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 152.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 152.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 152.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 153.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 152.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 152.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 152.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 153.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 152.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 152.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 153.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 152.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 153.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 152.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 152.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 152.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 152.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 152.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 153.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 152.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 153.
 
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/translator/transla
 tor-basic-dictionary-English.dict
@@ -1151,7 +1151,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 tor-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (./presentationGenerator.nav)
-Overfull \vbox (44.55624pt too high) detected at line 153
+Overfull \vbox (44.55624pt too high) detected at line 154
  []
 
 [1
@@ -1159,296 +1159,650 @@ Overfull \vbox (44.55624pt too high) detected at line 153
 {c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
 LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 
-181.
+182.
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmss.fd
 File: ts1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
-] [3
+]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
+ods-in-time-to-event-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.182 \end{frame}
+                  [3
+
+]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
+ods-in-time-to-event-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.182 \end{frame}
+                  [4
+
+]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
+ods-in-time-to-event-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.182 \end{frame}
+                  [5
+
+]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
+ods-in-time-to-event-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.182 \end{frame}
+                  [6
+
+] [7
+
+]pdfTeX warning (ext4): destination with the same identifier (name{motivations-
+for-a-new-method}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{frame}
+                  [8
+
+]pdfTeX warning (ext4): destination with the same identifier (name{motivations-
+for-a-new-method}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{frame}
+                  [9
+
+]pdfTeX warning (ext4): destination with the same identifier (name{motivations-
+for-a-new-method}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{frame}
+                  [10
 
 ]
-<coxquote.png, id=35, 852.18375pt x 596.2275pt>
+<coxquote.png, id=71, 852.18375pt x 596.2275pt>
 File: coxquote.png Graphic file (type png)
 <use coxquote.png>
-Package pdftex.def Info: coxquote.png  used on input line 209.
+Package pdftex.def Info: coxquote.png  used on input line 210.
 (pdftex.def)             Requested size: 307.29303pt x 214.99654pt.
 
-Overfull \vbox (3.2507pt too high) detected at line 209
+Overfull \vbox (3.2507pt too high) detected at line 210
  []
 
-[4
+[11
 
- <./coxquote.png>] [5
+ <./coxquote.png>] [12
 
-] [6
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [13
+
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [14
+
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [15
+
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [16
+
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [17
+
+]pdfTeX warning (ext4): destination with the same identifier (name{index-pt-2.}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 \end{frame}
+                  [18
+
+] [19
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-data
+set}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.255 \end{frame}
+                  [20
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-data
+set}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.255 \end{frame}
+                  [21
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-data
+set}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.255 \end{frame}
+                  [22
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-data
+set}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.255 \end{frame}
+                  [23
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-data
+set}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.255 \end{frame}
+                  [24
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-286.
+285.
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
-86.
+85.
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-286.
+285.
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-286.
+285.
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 286.
+(Font)              <10.95> on input line 285.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 286.
+(Font)              <8> on input line 285.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 286.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 286
+(Font)              <6> on input line 285.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 285
 .
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 286
+LaTeX Font Info:    Trying to load font information for U+msb on input line 285
 .
 (c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 286.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 285.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 286.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 285.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 286.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 285.
 
-Overfull \hbox (21.92297pt too wide) in paragraph at lines 286--286
+Overfull \hbox (21.92297pt too wide) in paragraph at lines 285--285
  [] 
  []
 
 
-Overfull \vbox (20.51198pt too high) detected at line 286
+Overfull \vbox (20.51198pt too high) detected at line 285
  []
 
-[7
+[25
 
-] [8
+] [26
 
-] [9
+]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
+mated-imputation}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.307 \end{frame}
+                  [27
 
-] [10
+]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
+mated-imputation}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.307 \end{frame}
+                  [28
 
-] [11
+]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
+mated-imputation}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.307 \end{frame}
+                  [29
 
-] [12
+] [30
 
-] [13
+]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
+ables}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.326 \end{frame}
+                  [31
+
+]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
+ables}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.326 \end{frame}
+                  [32
+
+]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
+ables}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.326 \end{frame}
+                  [33
+
+]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
+ables}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.326 \end{frame}
+                  [34
+
+] [35
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [36
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [37
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [38
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [39
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [40
+
+]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
+rview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{frame}
+                  [41
+
+] [42
+
+]pdfTeX warning (ext4): destination with the same identifier (name{original-sup
+port-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.364 \end{frame}
+                  [43
+
+]pdfTeX warning (ext4): destination with the same identifier (name{original-sup
+port-analysis}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.364 \end{frame}
+                  [44
+
+] [45
+
+] [46
+
+] [47
+
+]pdfTeX warning (ext4): destination with the same identifier (name{support-ques
+tion}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.399 \end{frame}
+                  [48
+
+] [49
+
+]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
+cess}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.426 \end{frame}
+                  [50
+
+]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
+cess}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.426 \end{frame}
+                  [51
+
+]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
+cess}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.426 \end{frame}
+                  [52
+
+]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
+cess}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.426 \end{frame}
+                  [53
+
+]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
+cess}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.426 \end{frame}
+                  [54
 
 ]
-<presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf, id=101, 722.7pt x 50
+<presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf, id=316, 722.7pt x 50
 5.89pt>
 File: presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf Graphic file (ty
 pe pdf)
 <use presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsAPS-1.p
-df  used on input line 418.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 418
- []
-
-[14
+df  used on input line 433.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[55
 
  <./presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf>]
-<presentationGenerator_files/figure-beamer/SPSvsAPSZoom-1.pdf, id=113, 722.7pt 
-x 505.89pt>
-File: presentationGenerator_files/figure-beamer/SPSvsAPSZoom-1.pdf Graphic file
- (type pdf)
-<use presentationGenerator_files/figure-beamer/SPSvsAPSZoom-1.pdf>
-Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsAPSZoom
--1.pdf  used on input line 425.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 425
- []
-
-[15
-
- <./presentationGenerator_files/figure-beamer/SPSvsAPSZoom-1.pdf>]
-<presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf, id=125, 722.7pt x 505
+<presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf, id=329, 722.7pt x 505
 .89pt>
 File: presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf Graphic file (typ
 e pdf)
 <use presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsKM-1.pd
-f  used on input line 432.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 432
- []
-
-[16
+f  used on input line 440.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[56
 
  <./presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf>]
-<presentationGenerator_files/figure-beamer/SPSvsKMZoom-1.pdf, id=137, 722.7pt x
- 505.89pt>
-File: presentationGenerator_files/figure-beamer/SPSvsKMZoom-1.pdf Graphic file 
-(type pdf)
-<use presentationGenerator_files/figure-beamer/SPSvsKMZoom-1.pdf>
-Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsKMZoom-
-1.pdf  used on input line 439.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 439
- []
-
-[17
-
- <./presentationGenerator_files/figure-beamer/SPSvsKMZoom-1.pdf>]
-<presentationGenerator_files/figure-beamer/FullvsKM-1.pdf, id=150, 722.7pt x 50
+<presentationGenerator_files/figure-beamer/FullvsKM-1.pdf, id=341, 722.7pt x 50
 5.89pt>
 File: presentationGenerator_files/figure-beamer/FullvsKM-1.pdf Graphic file (ty
 pe pdf)
 <use presentationGenerator_files/figure-beamer/FullvsKM-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/FullvsKM-1.p
-df  used on input line 458.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-<presentationGenerator_files/figure-beamer/unnamed-chunk-1-1.pdf, id=151, 722.7
+df  used on input line 447.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[57
+
+ <./presentationGenerator_files/figure-beamer/FullvsKM-1.pdf>]
+<presentationGenerator_files/figure-beamer/unnamed-chunk-1-1.pdf, id=353, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-1-1.pdf Graphic f
 ile (type pdf)
 <use presentationGenerator_files/figure-beamer/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
-k-1-1.pdf  used on input line 458.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
+k-1-1.pdf  used on input line 463.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
 
-Overfull \vbox (326.43204pt too high) detected at line 458
+Overfull \vbox (41.89412pt too high) detected at line 463
  []
 
-[18
+[58
 
- <./presentationGenerator_files/figure-beamer/FullvsKM-1.pdf> <./presentationGe
-nerator_files/figure-beamer/unnamed-chunk-1-1.pdf>] [19
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-1-1.pdf>] [59
+
+]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
+pling-overview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.488 \end{frame}
+                  [60
+
+]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
+pling-overview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.488 \end{frame}
+                  [61
+
+]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
+pling-overview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.488 \end{frame}
+                  [62
+
+]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
+pling-overview}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.488 \end{frame}
+                  [63
 
 ]
-<presentationGenerator_files/figure-beamer/DataModel-1.pdf, id=176, 722.7pt x 5
+<presentationGenerator_files/figure-beamer/DataModel-1.pdf, id=393, 722.7pt x 5
 05.89pt>
 File: presentationGenerator_files/figure-beamer/DataModel-1.pdf Graphic file (t
 ype pdf)
 <use presentationGenerator_files/figure-beamer/DataModel-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/DataModel-1.
-pdf  used on input line 490.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 490
- []
-
-[20
+pdf  used on input line 495.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[64
 
  <./presentationGenerator_files/figure-beamer/DataModel-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf, id=188, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf, id=405, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic f
 ile (type pdf)
 <use presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
-k-2-1.pdf  used on input line 497.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 497
- []
-
-[21
+k-2-1.pdf  used on input line 502.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[65
 
  <./presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf, id=200, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf, id=418, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic f
 ile (type pdf)
 <use presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
-k-3-1.pdf  used on input line 504.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-
-Overfull \vbox (3.35876pt too high) detected at line 504
- []
-
-[22
+k-3-1.pdf  used on input line 509.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[66
 
  <./presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf>]
-\openout4 = `presentationGenerator.vrb'.
+<presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf, id=430, 722.7
+pt x 505.89pt>
+File: presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic f
+ile (type pdf)
+<use presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
+k-4-1.pdf  used on input line 516.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[67
 
-(./presentationGenerator.vrb
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-.
-(c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 6.
-<presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf, id=212, 722.7
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf>]
+<presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf, id=443, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf Graphic f
 ile (type pdf)
 <use presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
-k-5-1.pdf  used on input line 10.
-(pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
-)
-Overfull \vbox (36.97412pt too high) detected at line 517
+k-5-1.pdf  used on input line 523.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+[68
+
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf>] [69
+
+]
+<presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf, id=465, 722.7
+pt x 505.89pt>
+File: presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic f
+ile (type pdf)
+<use presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
+k-6-1.pdf  used on input line 541.
+(pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
+
+Overfull \vbox (8.34763pt too high) detected at line 541
  []
 
-[23
+[70
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf>] [24
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf>] [71
 
-] [25
+] [72
 
-] [26
+] [73
 
-] [27
+] [74
+
+] [75
+
+]pdfTeX warning (ext4): destination with the same identifier (name{casebase-par
+ametric-families}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.585 \end{frame}
+                  [76
 
 ]
 \openout4 = `presentationGenerator.vrb'.
 
-(./presentationGenerator.vrb) [28
+(./presentationGenerator.vrb
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 7
+.
+(c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 8.
+) [77
 
-] [29
+] [78
 
-] [30
+]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
+k}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.633 \end{frame}
+                  [79
+
+]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
+k}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.633 \end{frame}
+                  [80
+
+]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
+k}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.633 \end{frame}
+                  [81
+
+]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
+k}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.633 \end{frame}
+                  [82
+
+] [83
+
+]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
+-compared}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.650 \end{frame}
+                  [84
+
+]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
+-compared}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.650 \end{frame}
+                  [85
+
+]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
+-compared}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.650 \end{frame}
+                  [86
 
 ]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-9-1.pdf, id=277, 722.7
-pt x 505.89pt>
-File: presentationGenerator_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic f
-ile (type pdf)
-<use presentationGenerator_files/figure-beamer/unnamed-chunk-9-1.pdf>
+<presentationGenerator_files/figure-beamer/unnamed-chunk-10-1.pdf, id=575, 722.
+7pt x 505.89pt>
+File: presentationGenerator_files/figure-beamer/unnamed-chunk-10-1.pdf Graphic 
+file (type pdf)
+<use presentationGenerator_files/figure-beamer/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
-k-9-1.pdf  used on input line 643.
+k-10-1.pdf  used on input line 657.
 (pdftex.def)             Requested size: 307.2923pt x 215.1046pt.
 
-Overfull \vbox (3.35876pt too high) detected at line 643
+Overfull \vbox (3.35876pt too high) detected at line 657
  []
 
-[31
+[87
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-9-1.pdf>] [32
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-10-1.pdf>] [88
 
-] [33
+]pdfTeX warning (ext4): destination with the same identifier (name{ipa-score}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.674 \end{frame}
+                  [89
 
-] [34
+]pdfTeX warning (ext4): destination with the same identifier (name{ipa-score}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.674 \end{frame}
+                  [90
 
-] [35
+]pdfTeX warning (ext4): destination with the same identifier (name{ipa-score}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.674 \end{frame}
+                  [91
 
-] [36
+] [92
 
-] [37
+] [93
 
-] [38
+] [94
+
+] [95
 
 ]
 \tf@nav=\write7
@@ -1460,28 +1814,28 @@ Overfull \vbox (3.35876pt too high) detected at line 643
 \tf@snm=\write9
 \openout9 = `presentationGenerator.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 761.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 761.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 742.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 742.
 (./presentationGenerator.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 761.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 761.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 742.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 742.
 Package rerunfilecheck Info: File `presentationGenerator.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 25066 strings out of 483183
- 486643 string characters out of 5964586
- 695566 words of memory out of 5000000
- 39387 multiletter control sequences out of 15000+600000
+ 25202 strings out of 483172
+ 488529 string characters out of 5964205
+ 695791 words of memory out of 5000000
+ 39419 multiletter control sequences out of 15000+600000
  584822 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  66i,13n,88p,1822b,574s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
-it.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
--mathex.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/
-lm/lm-mathsy.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/d
-vips/lm/lm-rm.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/
-dvips/lm/lm-ec.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc
+{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+nc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mat
+hex.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
+m-mathit.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips
+/lm/lm-mathsy.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/
+dvips/lm/lm-rm.enc}{c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc
 /dvips/lm/lm-ts1.enc}<c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
 ype1/public/lm/lmex10.pfb><c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmmi10.pfb><c:/Users/jesse/AppData/Roaming/TinyTeX/texmf-di
@@ -1496,10 +1850,10 @@ sse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/User
 s/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:
 /Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pf
 b>
-Output written on presentationGenerator.pdf (38 pages, 1841150 bytes).
+Output written on presentationGenerator.pdf (95 pages, 3480681 bytes).
 PDF statistics:
- 413 PDF objects out of 1000 (max. 8388607)
- 327 compressed objects within 4 object streams
- 115 named destinations out of 1000 (max. 500000)
+ 740 PDF objects out of 1000 (max. 8388607)
+ 595 compressed objects within 6 object streams
+ 232 named destinations out of 1000 (max. 500000)
  103 words of extra memory for PDF output out of 10000 (max. 10000000)
 
