@@ -103,16 +103,16 @@ White blood count      & 9 (thousands)        \\ \hline
 # Variable overview (knaus)
 
 * **Response variables**
-* follow-up time, death.
+  * follow-up time, death.
 
 * **Covariates**
-* Age, sex, race, education (6)
-* Disease group/class, Number of comorbidities. (3)
-* Income, costs. (4)
-* Coma score, average Therapeutic Intervention Scoring System (2)
-* Physiological variables. (11)
-* Activities of daily living. (2)
-* Previous model findings. (8)
+  * Age, sex, race, education (6)
+  * Disease group/class, Number of comorbidities. (3)
+  * Income, costs. (4)
+  * Coma score, average Therapeutic Intervention Scoring System (2)
+  * Physiological variables. (11)
+  * Activities of daily living. (2)
+  * Previous model findings. (8)
 
 
 
@@ -126,9 +126,6 @@ White blood count      & 9 (thousands)        \\ \hline
 
 * Write out complicated model?????
 
-# Original SUPPORT analysis (knaus)
-
-* image of SPS vs APS ???????
 
 # SUPPORT question
 
@@ -218,7 +215,8 @@ FigureWidth='90%'
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
-  scale_colour_manual(name = "Models",values = myColors[c(3,4)])
+  scale_colour_manual(name = "Models",values = myColors[c(3,4)])+
+  labs(y= "Probability of Event", x = "Survival time (Days)")
 ```
 
 # SPS vs. Kaplan-Meier
@@ -227,7 +225,8 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(3,4,2)])
+  scale_colour_manual(name = "Models",values = myColors[c(3,4,2)])+
+  labs(y= "Probability of Event", x = "Survival time (Days)")
 ```
 
 # All covariates vs. physiology scores vs unadjusted
@@ -237,7 +236,8 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, col = "All Covariates without SPS APS"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(1,3,4,2)])
+  scale_colour_manual(name = "Models",values = myColors[c(1,3,4,2)])+
+  labs(y= "Probability of Event", x = "Survival time (Days)")
 ```
 
 
@@ -246,12 +246,13 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
 ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) + 
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, colour = "Full"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(1,2)])
+  scale_colour_manual(name = "Models",values = myColors[c(1,2)])+
+  labs(y= "Probability of Event", x = "Survival time (Days)")
 ```
 
-Conclusion:
+# Chosen absolute risk comparisons: conclusion
 
-* Linear associations without physiology scores perform similarly to physiology scores.
+* Linear associations without physiology scores perform similarly to physiology scores alone.
 
 
 # Casebase sampling overview
@@ -353,6 +354,7 @@ pch = 19,cex=1.5)
 # Casebase: Sampling
 
 $$e^{L}=\frac{Pr(Y=1|x,t)}{Pr(Y=0|x,t)}=\frac{h(x,t)*B(x,t)}{b[B(x,t)/B]}=\frac{h(x,t)*B}{b}$$
+
 * $L=\beta X$
 * $b$ = base-series.
 * $B$ = Base.
@@ -397,16 +399,16 @@ pch = 19,cex=1.5)
 
 # Maximum log-likelihood [1]
 
- $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}})  $$
+ $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}})  $$
  
 # Maximum log-likelihood, with offset
 
- $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}}})$$
+ $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})}})$$
 
 
 # Maximum log-likelihood, with offset and lasso
 
- $$  l(\beta)=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{\frac{b}{B}}})  \textcolor{red}{-\lambda||\beta||}$$
+ $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})}})  \textcolor{red}{-\lambda||\beta||}$$
  
 # Casebase: Parametric families
 * We can now fit models of the form:
@@ -443,10 +445,10 @@ $$CI(x,t)=1-e^{-\int^{t}_{0}h(x,u)du}$$
 
 * Recall: Case study to demonstrate regularization using our method.
 
-* (death, time) ~ 1
-* (death, time) ~  $\beta X$
-* (death, time) ~  $\beta X$ <--Lasso
-* death ~ log(time) + $\beta X$ <--Lasso 
+* **unadjusted**: (death, time) ~ 1
+* **Cox**: (death, time) ~  $\beta X$
+* **Coxnet**: (death, time) ~  $\beta X$ <--Lasso
+* **Penalized logistic**: death ~ log(time) + $\beta X$ <--Lasso 
 
 
 
@@ -515,7 +517,7 @@ cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="de
 
 ```{r CBabsolute, echo = FALSE, eval = TRUE}
 #Estimating the absolute risk curve using the newData parameter.
-abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 1000),newdata = newData , s="lambda.1se",method=c("numerical"))
+abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 30),newdata = newData , s="lambda.1se",method=c("numerical"))
 abCB=data.frame(abCbFull[,1],rowMeans(abCbFull[,-c(1)]))
 
 colnames(abCB)<-c("Time","Absolute risk")
@@ -529,9 +531,11 @@ ab=rbind(abCB,abCN)
 
 ```{r include=TRUE}
 ggplot(as.data.frame(ab), aes(Time)) + 
+    geom_line(data=as.data.frame(baseCoxComparisonData),mapping=aes(y = Full, colour = "Cox"),lwd=2)+
   geom_line(aes(y = `Absolute risk`, colour = Model),lwd=2)+
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
-  scale_colour_manual(name = "Models",values = myColors[c(1,2,3)])
+
+  scale_colour_manual(name = "Models",values = myColors[c(4,1,3,2)])
 ```
 
 # Future work
