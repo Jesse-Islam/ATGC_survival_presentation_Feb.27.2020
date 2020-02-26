@@ -571,9 +571,10 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 
 
-# Tutorial and Slides
+# Tutorial and slides
 
 \begin{center}
+
 Tutorial:
 
 http://sahirbhatnagar.com/casebase/
@@ -583,5 +584,6 @@ Slides:
 https://github.com/Jesse-Islam/ATGC_survival_presentation_Feb.27.2020
 
 Questions?
+
 \end{center}
 
