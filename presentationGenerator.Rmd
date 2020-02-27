@@ -344,8 +344,8 @@ points((ftime[ord])[cases[ord]], moved_cases, pch = 19,
 col = "firebrick3", cex = ptsz)
 #points((ftime[ord])[bases[ord]], moved_bases, pch = 19,
 #col = "blue", cex = ptsz)
-legend("topright", legend = c("Base","case-series (Death)","base-series"),
-col = c("grey60","firebrick3", "blue"),
+legend("topright", legend = c("Base","base-series","case-series (Death)"),
+col = c("grey60", "blue","firebrick3"),
 pch = 19,cex=1.5)
 
 
@@ -380,8 +380,8 @@ col = "firebrick3", cex = ptsz)
 #col = "blue", cex = ptsz)
 abline(v=990,lwd=2)
 abline(v=1010,lwd=2)
-legend("topright", legend = c("Base","case-series (Death)","base-series"),
-col = c("grey60","firebrick3", "blue"),
+legend("topright", legend = c("Base","base-series","case-series (Death)"),
+col = c("grey60", "blue","firebrick3"),
 pch = 19,cex=1.5)
 ```
 
