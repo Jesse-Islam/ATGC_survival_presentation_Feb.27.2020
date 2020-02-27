@@ -1,5 +1,5 @@
 ---
-title: "Absolute risk integration using penalized logistic regression"
+title: "Penalized logistic regression on time-to-event data using casebase sampling"
 author: "Jesse Islam"
 date: "2/27/2020"
 mathspec: true
@@ -34,25 +34,24 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 * Julien and Hanley found that survival analysis rarely produces prognostic functions, even though the software is widely available in cox regression packages. [2]
 * They believe the stepwise nature is the reason, as it reduces interpretability. [2]
-* Want to easily model non-proportional hazards. [2]
 * A streamlined approach for reaching a **smooth absolute risk** curve. [2]
-
 
 # Dr. Cox's perspective
 
 ![](coxquote.png)
 
-# Index pt 2.
+# Itinerary
 
-* SUPPORT study
-* Casebase sampling
-* Penalized logistic regression on survival data
-* Maximum likelihood with regularization
-* Absolute risk comparison
-* Future work
-* References
+1. SUPPORT study
+2. Casebase sampling
+3. Penalized logistic regression on survival data
+4. Maximum likelihood with regularization
+5. Absolute risk comparison
+6. Conclusion
+7. Future work
+8. References
 
-# SUPPORT dataset (knaus)
+# SUPPORT dataset [4]
 
 * **Study to Understand Prognoses and Preferences for Outcomes and Risks Treatments**
 * Design: Prospective cohort study.
@@ -61,7 +60,7 @@ knitr::opts_chunk$set(dev = 'pdf')
 * Follow-up-time: 5.56 years.
 * 68% incidence rate.
 
-# SUPPORT manual imputation (knaus)
+# SUPPORT manual imputation [4]
 
 * Notorious for missing data
 \begin{table}[]
@@ -88,61 +87,73 @@ White blood count      & 9 (thousands)        \\ \hline
 * Mice imputation package (R)
 
 1. PMM (Predictive Mean Matching)  – For numeric variables
-2. logreg(Logistic Regression) – For Binary Variables (with 2 levels)
-3. polyreg(Bayesian polytomous regression) – For Factor Variables (>= 2 levels)
+2. logreg(Logistic Regression) – Binary Variables 
+3. polyreg(Bayesian polytomous regression) Factor Variables
 
-# Removed variables (knaus)
+# Removed variables [4]
 
-* Hospital Charges.
-* Patient ratio of costs to charges.
-* Patient Micro-costs.
-* functional disability (ordinal).
-* Income (ordinal).
-* Surrogate activities of daily living.
+* **Response variables**
+  * Hospital Charges.
+  * Patient ratio of costs to charges.
+  * Patient Micro-costs.
+* **Ordinal covariates**
+  * functional disability.
+  * Income.
+* **Sparse covariate**
+  * Surrogate activities of daily living.
+* Previous model results. (6)
 
-# Variable overview (knaus)
+# Variable overview [4]
 
 * **Response variables**
   * follow-up time, death.
 
 * **Covariates**
   * Age, sex, race, education (6)
-  * Disease group/class, Number of comorbidities. (3)
-  * Income, costs. (4)
-  * Coma score, average Therapeutic Intervention Scoring System (2)
+  * Disease group/class, comorbidities. (3)
+  * Coma score, Therapeutic Intervention Scoring System (2)
   * Physiological variables. (11)
   * Activities of daily living. (2)
-  * Previous model findings. (8)
 
 
 
-# Original SUPPORT analysis (knaus)
 
-* Determined SUPPORT prognostic model on phase I (4301 individuals).
-* Tested on Phase II (4028 individuals).
+# Original SUPPORT analysis [4]
+
+* Determined SUPPORT prognostic model on phase I patients.
+* Tested on Phase II.
 * Both on the scale of 180 days.
 
-# Original SUPPORT analysis (knaus)
+# Original SUPPORT analysis [4]
 
-* Write out complicated model?????
+SUPPORT physiology score (SPS) was developed.
+```{r, out.width = "80%",include=TRUE}
+knitr::include_graphics("SPS.png")
+```
 
 
-# SUPPORT question
 
-* How does their model perform over 5.56 years?
-* Absolute Risk comparison.
+# SUPPORT: my question
+
+* How does their SPS perform over 5.56 years?
+* How does the Apache III physiology score (APS) perform over 5.56 years?
+* How does a model with all the covariates, excluding SPS and APS, perform?
 
 # Analysis Process
 
 1. Impute
-2. Compare SPS and APS over ~5.56 years using absolute risk curves.
-3. Compare to Kaplan-Meier curve
-4. Compare to full model (excluding SPS and APS)
+2. Compare SPS and APS over ~5.56 years using absolute risk.
+3. Compare to Kaplan-Meier curve (unadjusted model).
+4. Compare to full model (excluding SPS and APS).
 
 * All models is trained on 80% of the observations.
 * Remaining observations are used to generate comparative absolute risk curves.
+  * The absolute risk curve for each individual is averaged.
+  * Averaged curve is expected to approach Kaplan-meier curve.
 
 ```{r data processing,include=FALSE}
+
+#DATA retrieved from http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/support2csv.zip
 ew <- read_csv("support2.csv")
 data<-read.csv('support2.csv', col.names=colnames(ew), fill=TRUE, header=TRUE)
 rm(ew)
@@ -216,7 +227,7 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_line(aes(y = SPS, colour = "SPS"),lwd=2) +
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   scale_colour_manual(name = "Models",values = myColors[c(3,4)])+
-  labs(y= "Probability of Event", x = "Survival time (Days)")
+  labs(y= "Probability of Death", x = "Survival time (Days)")
 ```
 
 # SPS vs. Kaplan-Meier
@@ -226,7 +237,7 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_line(aes(y = APS, colour = "APS"),lwd=2) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(3,4,2)])+
-  labs(y= "Probability of Event", x = "Survival time (Days)")
+  labs(y= "Probability of Death", x = "Survival time (Days)")
 ```
 
 # All covariates vs. physiology scores vs unadjusted
@@ -237,7 +248,7 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, col = "All Covariates without SPS APS"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(1,3,4,2)])+
-  labs(y= "Probability of Event", x = "Survival time (Days)")
+  labs(y= "Probability of Death", x = "Survival time (Days)")
 ```
 
 
@@ -247,13 +258,13 @@ ggplot(as.data.frame(baseCoxComparisonData), aes(Time)) +
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
   geom_line(aes(y = Full, colour = "Full"),lwd=2)+
   scale_colour_manual(name = "Models",values = myColors[c(1,2)])+
-  labs(y= "Probability of Event", x = "Survival time (Days)")
+  labs(y= "Probability of Death", x = "Survival time (Days)")
 ```
 
 # Chosen absolute risk comparisons: conclusion
 
-* Linear associations without physiology scores perform similarly to physiology scores alone.
-
+* Linear associations without physiology scores perform similarly to SPS and APS alone.
+* We choose the linear associations without physiology scores as the model of choice (Full model). 
 
 # Casebase sampling overview
 
@@ -399,16 +410,15 @@ pch = 19,cex=1.5)
 
 # Maximum log-likelihood [1]
 
- $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}})  $$
+ $$  log(l(\beta_{0},\beta))=\frac{1}{N}\sum^{N}_{i=1}\{y_{i}(\beta_{0}+x_{i}^{T}\beta)-log(1+e^{\beta_{0}+x_{i}^{T}\beta})\}  $$
  
 # Maximum log-likelihood, with offset
-
- $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})}})$$
-
+ $$  log(l(\textcolor{blue}{log(\frac{b}{B})},\beta))=\frac{1}{N}\sum^{N}_{i=1}\{y_{i}(\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta)-log(1+e^{\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta})\}  $$
 
 # Maximum log-likelihood, with offset and lasso
 
- $$  log(l(\beta))=\sum^{N}_{i=1}(\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})})-n_{i}log(1+e^{\sum^{K}_{k=0}x_{ik}\beta_{k}+\textcolor{blue}{log(\frac{b}{B})}})  \textcolor{red}{-\lambda||\beta||}$$
+
+$\small log(l(\textcolor{blue}{log(\frac{b}{B})},\beta))=\frac{1}{N}\sum^{N}_{i=1}\{y_{i}(\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta)-log(1+e^{\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta})\}  \textcolor{red}{-\lambda||\beta||}$
  
 # Casebase: Parametric families
 * We can now fit models of the form:
@@ -438,10 +448,10 @@ $$CI(x,t)=1-e^{-\int^{t}_{0}h(x,u)du}$$
 * *CI(x,t)*= Cumulative Incidence (Absolute Risk)
 * *h(x,u)*= Hazard function
 
-* Lets use the weibull hazard
+* Lets use the weibull hazard.
 
 
-# models to be compared
+# Models to be compared
 
 * Recall: Case study to demonstrate regularization using our method.
 
@@ -517,7 +527,7 @@ cbFull=casebase::fitSmoothHazard.fit(x,y,family="glmnet",time="d.time",event="de
 
 ```{r CBabsolute, echo = FALSE, eval = TRUE}
 #Estimating the absolute risk curve using the newData parameter.
-abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 30),newdata = newData , s="lambda.1se",method=c("numerical"))
+abCbFull=casebase::absoluteRisk(cbFull,time = seq(1,max(abKMcompare[,1]), 25),newdata = newData , s="lambda.1se",method=c("numerical"))
 abCB=data.frame(abCbFull[,1],rowMeans(abCbFull[,-c(1)]))
 
 colnames(abCB)<-c("Time","Absolute risk")
@@ -534,19 +544,25 @@ ggplot(as.data.frame(ab), aes(Time)) +
     geom_line(data=as.data.frame(baseCoxComparisonData),mapping=aes(y = Full, colour = "Cox"),lwd=2)+
   geom_line(aes(y = `Absolute risk`, colour = Model),lwd=2)+
   geom_step(data=as.data.frame(abKMcompare),mapping=aes(x=Time,y=KM,color="Unadjusted"),lwd=2)+
-
-  scale_colour_manual(name = "Models",values = myColors[c(4,1,3,2)])
+  scale_colour_manual(name = "Models",values = myColors[c(4,1,3,2)])+
+  labs(y= "Probability of Death", x = "Survival time (Days)")
 ```
+
+# Conclusions / take homes
+
+* Classical survival analysis requires methods to encorporate censorship in our data.
+* Case-base sampling is a techinique that implicitly encorporates censorship implicitly.
+* Logistic regression on SUPPORT dataset had slightly different results near the end of follow-up time. 
 
 # Future work
 
-* IPA score
-* Survival GWAS
+* Comparative measure.
+* Survival GWAS.
 
 
 # References 1
 
-1.Czepiel, S. A. (2002). Maximum likelihood estimation of logistic regression models: theory and implementation. Available at czep. net/stat/mlelr. pdf, 1825252548-1564645290. ????
+1.Czepiel, S. A. (2002). Maximum likelihood estimation of logistic regression models: theory and implementation. Available at czep. net/stat/mlelr. pdf, 1825252548-1564645290.
 
 
 2.Hanley, James A, and Olli S Miettinen. 2009. "Fitting Smooth-in-Time Prognostic Risk Functions via Logistic Regression." *The International Journal of Biostatistics 5 (1)*.
@@ -563,8 +579,6 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 # References 3
 
-
-
 7.Scrucca L, Santucci A, Aversa F. Competing risk analysis using R: an easy guide for clinicians. *Bone Marrow Transplant*. 2007 Aug;40(4):381-7. doi: 10.1038/sj.bmt.1705727.
 
 8.Turgeon, M. (2017, June 10). Retrieved May 05, 2019, from https://www.maxturgeon.ca/slides/MTurgeon-2017-Student-Conference.pdf
@@ -573,17 +587,18 @@ ggplot(as.data.frame(ab), aes(Time)) +
 
 # Tutorial and slides
 
-\begin{center}
+<center>
 
-Tutorial:
+**Tutorial:**
 
 http://sahirbhatnagar.com/casebase/
 
-Slides:
+**Slides:**
 
 https://github.com/Jesse-Islam/ATGC_survival_presentation_Feb.27.2020
 
-Questions?
+**Questions?**
 
-\end{center}
+</center>
+
 
