@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.26)  27 FEB 2020 09:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.26)  27 FEB 2020 22:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1164,52 +1164,10 @@ LaTeX Font Info:    Trying to load font information for TS1+lmss on input line
 File: ts1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
-]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
-ods-in-time-to-event-analysis}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.183 \end{frame}
-                  [3
-
-]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
-ods-in-time-to-event-analysis}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.183 \end{frame}
-                  [4
-
-]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
-ods-in-time-to-event-analysis}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.183 \end{frame}
-                  [5
-
-]pdfTeX warning (ext4): destination with the same identifier (name{popular-meth
-ods-in-time-to-event-analysis}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.183 \end{frame}
-                  [6
-
-] [7
-
-]pdfTeX warning (ext4): destination with the same identifier (name{motivations-
-for-a-new-method}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.202 \end{frame}
-                  [8
-
-]pdfTeX warning (ext4): destination with the same identifier (name{motivations-
-for-a-new-method}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.202 \end{frame}
-                  [9
+] [3
 
 ]
-<coxquote.png, id=66, 852.18375pt x 596.2275pt>
+<coxquote.png, id=35, 852.18375pt x 596.2275pt>
 File: coxquote.png Graphic file (type png)
 <use coxquote.png>
 Package pdftex.def Info: coxquote.png  used on input line 209.
@@ -1218,95 +1176,11 @@ Package pdftex.def Info: coxquote.png  used on input line 209.
 Overfull \vbox (3.2507pt too high) detected at line 209
  []
 
-[10
+[4
 
- <./coxquote.png>] [11
+ <./coxquote.png>] [5
 
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [12
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [13
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [14
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [15
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [16
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [17
-
-]pdfTeX warning (ext4): destination with the same identifier (name{itinerary}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.234 \end{frame}
-                  [18
-
-] [19
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-data
-set-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.256 \end{frame}
-                  [20
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-data
-set-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.256 \end{frame}
-                  [21
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-data
-set-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.256 \end{frame}
-                  [22
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-data
-set-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.256 \end{frame}
-                  [23
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-data
-set-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.256 \end{frame}
-                  [24
+] [6
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
@@ -1360,165 +1234,18 @@ Overfull \hbox (21.92297pt too wide) in paragraph at lines 286--286
 Overfull \vbox (20.51198pt too high) detected at line 286
  []
 
-[25
+[7
 
-] [26
+] [8
 
-]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
-mated-imputation}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.307 \end{frame}
-                  [27
+] [9
 
-]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
-mated-imputation}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.307 \end{frame}
-                  [28
+] [10
 
-]pdfTeX warning (ext4): destination with the same identifier (name{support-auto
-mated-imputation}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.307 \end{frame}
-                  [29
-
-] [30
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [31
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [32
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [33
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [34
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [35
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [36
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [37
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [38
-
-]pdfTeX warning (ext4): destination with the same identifier (name{removed-vari
-ables-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.348 \end{frame}
-                  [39
-
-] [40
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [41
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [42
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [43
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [44
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [45
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [46
-
-]pdfTeX warning (ext4): destination with the same identifier (name{variable-ove
-rview-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.381 \end{frame}
-                  [47
-
-] [48
-
-]pdfTeX warning (ext4): destination with the same identifier (name{original-sup
-port-analysis-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.396 \end{frame}
-                  [49
-
-]pdfTeX warning (ext4): destination with the same identifier (name{original-sup
-port-analysis-4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.396 \end{frame}
-                  [50
+] [11
 
 ]
-<SPS.png, id=292, 992.95969pt x 820.56563pt>
+<SPS.png, id=88, 992.95969pt x 820.56563pt>
 File: SPS.png Graphic file (type png)
 <use SPS.png>
 Package pdftex.def Info: SPS.png  used on input line 405.
@@ -1527,77 +1254,14 @@ Package pdftex.def Info: SPS.png  used on input line 405.
 Overfull \vbox (14.78166pt too high) detected at line 405
  []
 
-[51
+[12
 
- <./SPS.png>] [52
+ <./SPS.png>] [13
 
-]pdfTeX warning (ext4): destination with the same identifier (name{support-my-q
-uestion}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.422 \end{frame}
-                  [53
-
-]pdfTeX warning (ext4): destination with the same identifier (name{support-my-q
-uestion}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.422 \end{frame}
-                  [54
-
-] [55
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [56
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [57
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [58
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [59
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [60
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [61
-
-]pdfTeX warning (ext4): destination with the same identifier (name{analysis-pro
-cess}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.457 \end{frame}
-                  [62
+] [14
 
 ]
-<presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf, id=359, 722.7pt x 50
+<presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf, id=109, 722.7pt x 50
 5.89pt>
 File: presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf Graphic file (ty
 pe pdf)
@@ -1605,10 +1269,10 @@ pe pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsAPS-1.p
 df  used on input line 464.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[63
+[15
 
  <./presentationGenerator_files/figure-beamer/SPSvsAPS-1.pdf>]
-<presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf, id=371, 722.7pt x 505
+<presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf, id=121, 722.7pt x 505
 .89pt>
 File: presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf Graphic file (typ
 e pdf)
@@ -1616,10 +1280,10 @@ e pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/SPSvsKM-1.pd
 f  used on input line 471.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[64
+[16
 
  <./presentationGenerator_files/figure-beamer/SPSvsKM-1.pdf>]
-<presentationGenerator_files/figure-beamer/FullvsKM-1.pdf, id=383, 722.7pt x 50
+<presentationGenerator_files/figure-beamer/FullvsKM-1.pdf, id=133, 722.7pt x 50
 5.89pt>
 File: presentationGenerator_files/figure-beamer/FullvsKM-1.pdf Graphic file (ty
 pe pdf)
@@ -1627,10 +1291,10 @@ pe pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/FullvsKM-1.p
 df  used on input line 478.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[65
+[17
 
  <./presentationGenerator_files/figure-beamer/FullvsKM-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf, id=395, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf, id=145, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic f
 ile (type pdf)
@@ -1638,49 +1302,14 @@ ile (type pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
 k-2-1.pdf  used on input line 485.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[66
+[18
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf>] [67
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-2-1.pdf>] [19
 
-]pdfTeX warning (ext4): destination with the same identifier (name{chosen-absol
-ute-risk-comparisons-conclusion}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.500 \end{frame}
-                  [68
-
-] [69
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-overview}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.525 \end{frame}
-                  [70
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-overview}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.525 \end{frame}
-                  [71
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-overview}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.525 \end{frame}
-                  [72
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-overview}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.525 \end{frame}
-                  [73
+] [20
 
 ]
-<presentationGenerator_files/figure-beamer/DataModel-1.pdf, id=448, 722.7pt x 5
+<presentationGenerator_files/figure-beamer/DataModel-1.pdf, id=172, 722.7pt x 5
 05.89pt>
 File: presentationGenerator_files/figure-beamer/DataModel-1.pdf Graphic file (t
 ype pdf)
@@ -1688,10 +1317,10 @@ ype pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/DataModel-1.
 pdf  used on input line 532.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[74
+[21
 
  <./presentationGenerator_files/figure-beamer/DataModel-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf, id=460, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf, id=184, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic f
 ile (type pdf)
@@ -1699,10 +1328,10 @@ ile (type pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
 k-3-1.pdf  used on input line 539.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[75
+[22
 
  <./presentationGenerator_files/figure-beamer/unnamed-chunk-3-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf, id=472, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf, id=196, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic f
 ile (type pdf)
@@ -1710,10 +1339,10 @@ ile (type pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
 k-4-1.pdf  used on input line 546.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[76
+[23
 
  <./presentationGenerator_files/figure-beamer/unnamed-chunk-4-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf, id=484, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf, id=208, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf Graphic f
 ile (type pdf)
@@ -1721,10 +1350,10 @@ ile (type pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
 k-5-1.pdf  used on input line 553.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[77
+[24
 
  <./presentationGenerator_files/figure-beamer/unnamed-chunk-5-1.pdf>]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf, id=496, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf, id=220, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic f
 ile (type pdf)
@@ -1732,33 +1361,12 @@ ile (type pdf)
 Package pdftex.def Info: presentationGenerator_files/figure-beamer/unnamed-chun
 k-6-1.pdf  used on input line 560.
 (pdftex.def)             Requested size: 276.55865pt x 193.59105pt.
-[78
+[25
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf>] [79
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.579 \end{frame}
-                  [80
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.579 \end{frame}
-                  [81
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-sam
-pling-5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.579 \end{frame}
-                  [82
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-6-1.pdf>] [26
 
 ]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-7-1.pdf, id=534, 722.7
+<presentationGenerator_files/figure-beamer/unnamed-chunk-7-1.pdf, id=243, 722.7
 pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-7-1.pdf Graphic f
 ile (type pdf)
@@ -1770,11 +1378,11 @@ k-7-1.pdf  used on input line 588.
 Overfull \vbox (8.34763pt too high) detected at line 588
  []
 
-[83
+[27
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-7-1.pdf>] [84
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-7-1.pdf>] [28
 
-] [85
+] [29
 
 ]
 Overfull \hbox (3.88893pt too wide) detected at line 610
@@ -1786,22 +1394,11 @@ s/m/sl/10.95 log\OT1/lmss/m/n/10.95 (\T1/lmss/m/n/10.95 1 \OT1/lmss/m/n/10.95 +
  \T1/lmss/m/sl/10.95 e[]\OT1/lmss/m/n/10.95 )\OMS/lmsy/m/n/10.95 g
  []
 
-[86
+[30
 
-]
+] [31
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 617.
-
-[87
-
-] [88
-
-]pdfTeX warning (ext4): destination with the same identifier (name{casebase-par
-ametric-families}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.632 \end{frame}
-                  [89
+] [32
 
 ]
 \openout4 = `presentationGenerator.vrb'.
@@ -1814,70 +1411,14 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 8.
-) [90
+) [33
 
-] [91
+] [34
 
-]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
-k}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.680 \end{frame}
-                  [92
-
-]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
-k}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.680 \end{frame}
-                  [93
-
-]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
-k}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.680 \end{frame}
-                  [94
-
-]pdfTeX warning (ext4): destination with the same identifier (name{absolute-ris
-k}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.680 \end{frame}
-                  [95
-
-] [96
-
-]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
--compared}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.700 \end{frame}
-                  [97
-
-]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
--compared}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.700 \end{frame}
-                  [98
-
-]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
--compared}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.700 \end{frame}
-                  [99
-
-]pdfTeX warning (ext4): destination with the same identifier (name{models-to-be
--compared}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.700 \end{frame}
-                  [100
+] [35
 
 ]
-<presentationGenerator_files/figure-beamer/unnamed-chunk-11-1.pdf, id=649, 722.
+<presentationGenerator_files/figure-beamer/unnamed-chunk-11-1.pdf, id=311, 722.
 7pt x 505.89pt>
 File: presentationGenerator_files/figure-beamer/unnamed-chunk-11-1.pdf Graphic 
 file (type pdf)
@@ -1889,40 +1430,19 @@ k-11-1.pdf  used on input line 707.
 Overfull \vbox (3.35876pt too high) detected at line 707
  []
 
-[101
+[36
 
- <./presentationGenerator_files/figure-beamer/unnamed-chunk-11-1.pdf>] [102
+ <./presentationGenerator_files/figure-beamer/unnamed-chunk-11-1.pdf>] [37
 
-]pdfTeX warning (ext4): destination with the same identifier (name{conclusions-
-take-homes}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.725 \end{frame}
-                  [103
+] [38
 
-]pdfTeX warning (ext4): destination with the same identifier (name{conclusions-
-take-homes}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.725 \end{frame}
-                  [104
+] [39
 
-] [105
+] [40
 
-]pdfTeX warning (ext4): destination with the same identifier (name{future-work}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.738 \end{frame}
-                  [106
+] [41
 
-] [107
-
-] [108
-
-] [109
-
-] [110
+] [42
 
 ]
 \tf@nav=\write7
@@ -1943,10 +1463,10 @@ Package rerunfilecheck Info: File `presentationGenerator.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 25243 strings out of 482941
- 488971 string characters out of 5958892
- 697915 words of memory out of 5000000
- 39660 multiletter control sequences out of 15000+600000
+ 25105 strings out of 482941
+ 487627 string characters out of 5958892
+ 696914 words of memory out of 5000000
+ 39658 multiletter control sequences out of 15000+600000
  584822 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  66i,13n,88p,1822b,574s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1970,10 +1490,10 @@ sse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/User
 s/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:
 /Users/jesse/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pf
 b>
-Output written on presentationGenerator.pdf (110 pages, 3891305 bytes).
+Output written on presentationGenerator.pdf (42 pages, 3824427 bytes).
 PDF statistics:
- 830 PDF objects out of 1000 (max. 8388607)
- 667 compressed objects within 7 object streams
- 263 named destinations out of 1000 (max. 500000)
+ 445 PDF objects out of 1000 (max. 8388607)
+ 353 compressed objects within 4 object streams
+ 127 named destinations out of 1000 (max. 500000)
  108 words of extra memory for PDF output out of 10000 (max. 10000000)
 

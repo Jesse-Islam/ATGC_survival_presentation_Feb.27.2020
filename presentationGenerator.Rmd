@@ -6,7 +6,7 @@ mathspec: true
 theme: "metropolis"
 output:
   beamer_presentation:
-    incremental: TRUE
+    incremental: FALSE
     fig_caption: false
 header-includes:
   \usepackage{xcolor}
@@ -418,7 +418,7 @@ pch = 19,cex=1.5)
 # Maximum log-likelihood, with offset and lasso
 
 
-$\small log(l(\textcolor{blue}{log(\frac{b}{B})},\beta))=\frac{1}{N}\sum^{N}_{i=1}\{y_{i}(\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta)-log(1+e^{\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta})\}  \textcolor{red}{-\lambda||\beta||}$
+$\frac{1}{N}\sum^{N}_{i=1}\{y_{i}(\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta)-log(1+e^{\textcolor{blue}{log(\frac{b}{B})}+x_{i}^{T}\beta})\}  \textcolor{red}{-\lambda||\beta||}$
  
 # Casebase: Parametric families
 * We can now fit models of the form:
